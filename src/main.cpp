@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <driver/dac.h>
+#include <time.h>
 
 //#include <HardwareTimer.h> 
 
@@ -48,10 +49,6 @@ void IRAM_ATTR Timer0_ISR()
 {
   // Send SineTable Values To DAC One By One
   dac_output_voltage(DAC_CHANNEL_1, valuesinus[i]);
-  if (i=25){
-    dephasage=time();
-
-  }
   if(i == 100)
   {
     i = 0;
