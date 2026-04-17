@@ -9,10 +9,7 @@
 #include "i2c_helpers.h"
 #include "sensor_helpers.h" */
 
-#define R_FIXED     10000.0     //Valeur de résistance pour diviseur de tension
-#define BETA        4195.0      //Constante de la thermistance
-#define T0          273.15  //Température de référence en Kelvin
-#define R0          10000.0     //Valeur de la thermistance
+
 
 #define ADC_PIN1 36
 #define ADC_PIN2 39
@@ -71,6 +68,7 @@ void setup()
 
 
 //obtenir la température
+/*
 void Temperature() {
     int adc_1_0 = analogRead(A0);
     int adc_1_1 = analogRead(ADC_PIN2);
@@ -95,7 +93,24 @@ void Temperature() {
     
     delay(1000);
 }
-
+*/
 void loop() {
-    Temperature();
-}
+    //Temperature();
+    // Envoi de l'impulsion
+    digitalWrite(DAC_CHANNEL_1, HIGH);
+    int startTime = micros();
+   // Attente de la réponse
+    while (digitalRead(DAC_CHANNEL_1) == LOW) {
+      // Boucle jusqu'à détection
+    }
+    
+    int endTime = micros();
+    digitalWrite(DAC_CHANNEL_1, LOW);
+
+    unsigned long responseTime = endTime - startTime;
+    Serial.print("Temps de réponse : ");
+    Serial.print(responseTime);
+    Serial.println(" µs");
+
+    delay(1000);
+} 
