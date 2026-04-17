@@ -15,7 +15,7 @@
 #define ADC_PIN2 39
 #define ADC_PIN3 34
 #define OUTPUT_PIN 25           // Pin GPIO pour ESP32
-#define MEASURE_PIN 34          // Exemple d'entrée ADC pour ESP32
+#define MEASURE_PIN 46          // Exemple d'entrée ADC pour ESP32
 
 
 int dephasage=0;
@@ -62,9 +62,13 @@ void setup()
   // Enable DAC1 Channel's Output
   dac_output_enable(DAC_CHANNEL_1);
   Serial.begin(115200);
-  Serial.println("config terminéé");
+
 }
 
+int mesure() {
+  int adcValue = analogRead(MEASURE_PIN);
+  return adcValue;
+}
 
 
 //obtenir la température
@@ -95,7 +99,7 @@ void Temperature() {
 }
 */
 void loop() {
-    //Temperature();
+    /*//Temperature();
     // Envoi de l'impulsion
     digitalWrite(DAC_CHANNEL_1, HIGH);
     int startTime = micros();
@@ -107,10 +111,21 @@ void loop() {
     int endTime = micros();
     digitalWrite(DAC_CHANNEL_1, LOW);
 
-    unsigned long responseTime = endTime - startTime;
-    Serial.print("Temps de réponse : ");
-    Serial.print(responseTime);
-    Serial.println(" µs");
+    int responseTime = endTime - startTime;
 
+
+    delay(1000);*/
+    //Mesure de l'impédance d'une simple resistance
+    int adcValue = mesure();
+    Serial.print("ADC Value: ");
+    Serial.println(adcValue);
+    int vraiValue = adcValue * 5 / 4095; // Convertir la valeur ADC en tension (0-5V)
+    Serial.print("Tension: ");
+    Serial.print(vraiValue);
+    Serial.println(" V");
+    int impedance = 5*10000/vraiValue - 10000; // Calculer l'impédance (en ohms)
+    Serial.print("Impédance: ");
+    Serial.print(impedance);
+    Serial.println(" Ohms");
     delay(1000);
 } 
