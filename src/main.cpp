@@ -18,9 +18,11 @@
 #define ADC_PIN3 34
 #define OUTPUT_PIN 25           // Pin GPIO pour ESP32
 #define MEASURE_PIN 32          // Exemple d'entrée ADC pour ESP32
+#define MEASURE_PIN2 33          // Deuxième entrée ADC pour ESP32
 
 
 int dephasage=0;
+int temps=0;
 
 const uint16_t valuesinus[] = {
 128, 136, 143, 151, 159, 167, 174, 182,
@@ -44,19 +46,23 @@ hw_timer_t *Timer0_Cfg = NULL;
 
 
 // The Timer0 ISR Function (Executes Every Timer0 Interrupt Interval)
+
+volatile uint16_t mesures[100];
+volatile bool buffer_pret = false;
+
 void IRAM_ATTR Timer0_ISR()
 {
-  // Send SineTable Values To DAC One By One
   dac_output_voltage(DAC_CHANNEL_1, valuesinus[i]);
-  if (i=25){
-    //dephasage=time();
-
-  }
-  if(i == 100)
-  {
+  mesures[i] = analogRead(MEASURE_PIN2);  // lecture synchronisée
+  i++;
+  if (i >= 100) {
     i = 0;
+    buffer_pret = true;
   }
 }
+
+
+
 
 void setup() 
 {
@@ -104,8 +110,35 @@ void Temperature() {
 }
 
 void loop() {
-    //Temperature();
+  if (buffer_pret) {
+    buffer_pret = false;
+    for (int j = 0; j < 100; j++) {
+      Serial.println(mesures[j]);
+    }
+  }
+  if (temps==90000){
+    int adcValue =  analogRead(MEASURE_PIN)+150;;//fix temporaire pour compenser la résistance interne du dac (1,5Kohms)
+    Serial.print("ADC Value: ");
+    Serial.println(adcValue);
+    float vraiValue = adcValue * 3.3/ 4095.0; // Convertir la valeur ADC en tension (0-3.3V)
+    Serial.print("Tension: ");
+    Serial.print(vraiValue);
+    Serial.println(" V");
+    float impedance = 5.0*10000.0/vraiValue - 10000.0; // Calculer l'impédance (en ohms)
+    Serial.print("Impédance: ");
+    Serial.print(impedance);
+    Serial.println(" Ohms");
+    temps=0;
+  } 
+  temps++;
 
+
+}
+/*
+void loop() {
+    //Temperature();
+    int adcValue =  analogRead(MEASURE_PIN);;//fix temporaire pour compenser la tension de 0.5V à l'entrée du ADC
+    Serial.println(adcValue);
     int adcValue =  analogRead(MEASURE_PIN)+150;;//fix temporaire pour compenser la tension de 0.5V à l'entrée du ADC
     Serial.print("ADC Value: ");
     Serial.println(adcValue);
@@ -118,4 +151,4 @@ void loop() {
     Serial.print(impedance);
     Serial.println(" Ohms");
     delay(1000);
-}
+}*/
