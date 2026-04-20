@@ -1,154 +1,76 @@
 #include <Arduino.h>
 #include <driver/dac.h>
 
-//#include <HardwareTimer.h> 
+#define DAC_CHAN DAC_CHANNEL_1 // GPIO 25 sur WROOM / GPIO 17 sur S2
+#define SINE_STEPS 25           // On réduit à 25 points pour laisser du souffle (40µs par point)
+#define ADC_PIN_Impedance 32             // Pin ADC pour la mesure
 
-/* #include "lib\ble_helpers.h"
-#include "lib\config.h"
-#include "i2c_helpers.h"
-#include "sensor_helpers.h" */
+// Table de 25 points pour générer le sinus
+const uint8_t valuesinus[SINE_STEPS] = {
+    128, 160, 190, 216, 236, 248, 254, 252, 243, 227, 204, 175, 144, 
+    112, 81, 52, 29, 13, 4, 2, 8, 20, 40, 66, 96
+};
 
-#define R_FIXED     10000.0     //Valeur de résistance pour diviseur de tension
-#define BETA        4195.0      //Constante de la thermistance
-#define T0          273.15  //Température de référence en Kelvin
-#define R0          10000.0     //Valeur de la thermistance
+volatile int i = 0;
+hw_timer_t *timer = NULL;
 
-#define ADC_PIN1 36
-#define ADC_PIN2 39
-#define ADC_PIN3 34
-#define OUTPUT_PIN 25           // Pin GPIO pour ESP32
-#define MEASURE_PIN 32          // Exemple d'entrée ADC pour ESP32
-#define MEASURE_PIN2 33          // Deuxième entrée ADC pour ESP32
+volatile int v_max_raw = 0;
+volatile int v_min_raw = 4095;
+volatile int final_max = 0;
+volatile int final_min = 0;
+volatile bool data_ready = false;
+volatile int idx_max_adc = 0;
 
+void IRAM_ATTR onTimer() {
+    // 1. Sortie DAC (toujours à chaque fois pour garder un beau sinus)
+    dac_output_voltage(DAC_CHAN, valuesinus[i]);
 
-int dephasage=0;
-int temps=0;
-
-const uint16_t valuesinus[] = {
-128, 136, 143, 151, 159, 167, 174, 182,
-189, 196, 202, 209, 215, 220, 226, 231,
-235, 239, 243, 246, 249, 251, 253, 254,
-255, 255, 255, 254, 253, 251, 249, 246,
-243, 239, 235, 231, 226, 220, 215, 209,
-202, 196, 189, 182, 174, 167, 159, 151,
-143, 136, 128, 119, 112, 104, 96, 88,
-81, 73, 66, 59, 53, 46, 40, 35,
-29, 24, 20, 16, 12, 9, 6, 4,
-2, 1, 0, 0, 0, 1, 2, 4,
-6, 9, 12, 16, 20, 24, 29, 35,
-40, 46, 53, 59, 66, 73, 81, 88,
-96, 104, 112, 119};
-int freq = 1000;
-int i = 0;
-
-// Timer0 Configuration Pointer (Handle)
-hw_timer_t *Timer0_Cfg = NULL;
-
-
-// The Timer0 ISR Function (Executes Every Timer0 Interrupt Interval)
-
-volatile uint16_t mesures[100];
-volatile bool buffer_pret = false;
-
-void IRAM_ATTR Timer0_ISR()
-{
-  dac_output_voltage(DAC_CHANNEL_1, valuesinus[i]);
-  mesures[i] = analogRead(MEASURE_PIN2);  // lecture synchronisée
-  i++;
-  if (i >= 100) {
-    i = 0;
-    buffer_pret = true;
-  }
-}
-
-
-
-
-void setup() 
-{
-  analogReadResolution(12); // Pour être sûr d'avoir la précision max
-  // Configure Timer0 Interrupt
-  Timer0_Cfg = timerBegin(0, 80, true);
-  timerAttachInterrupt(Timer0_Cfg, &Timer0_ISR, true);
-  timerAlarmWrite(Timer0_Cfg, 10, true);
-  timerAlarmEnable(Timer0_Cfg);
-  // Enable DAC1 Channel's Output
-  dac_output_enable(DAC_CHANNEL_1);
-  Serial.begin(115200);
-  Serial.println("config terminee");
-}
-
-int mesure() {
-  int adcValue = analogRead(MEASURE_PIN);
-  return adcValue;
-}
-
-//obtenir la température
-void Temperature() {
-    int adc_1_0 = analogRead(A0);
-    int adc_1_1 = analogRead(ADC_PIN2);
-    int adc_1_2 = analogRead(A3);
-
-    float v1 = 5 * adc_1_0 / 4095.0;
-    float v2 = 5 * adc_1_1 / 4095.0;
-    float v3 = 5 * adc_1_2 / 4095.0;
-
-    float r1 = R_FIXED * v1 / (5 - v1);
-    float r2 = R_FIXED * v2 / (5 - v2);
-    float r3 = R_FIXED * v3 / (5 - v3);
-
-    float tempC1 = (1.0 / (1.0/T0 + (1.0/BETA) * log(r1/R0)) - 273.15) + 5.0;
-    float tempC2 = (1.0 / (1.0/T0 + (1.0/BETA) * log(r2/R0)) - 273.15) + 5.0;
-    float tempC3 = (1.0 / (1.0/T0 + (1.0/BETA) * log(r3/R0)) - 273.15) + 5.0;
-
-    Serial.print("Temp 1: "); Serial.print(tempC1); Serial.print(" °C, ");
-    Serial.print("Temp 2: "); Serial.print(tempC2); Serial.print(" °C, ");
-    Serial.print("Temp 3: "); Serial.print(tempC3); Serial.println(" °C");
-    Serial.print("ADC: "); Serial.print(adc_1_0); Serial.print(", "); Serial.print(adc_1_1); Serial.print(", "); Serial.println(adc_1_2);
     
-    delay(1000);
-}
-
-void loop() {
-  if (buffer_pret) {
-    buffer_pret = false;
-    for (int j = 0; j < 100; j++) {
-      Serial.println(mesures[j]);
+    if (i % 2 == 0) {
+        int val = analogRead(ADC_PIN_Impedance); 
+        
+        if (val > v_max_raw) {
+            v_max_raw = val;
+            idx_max_adc = i;
+        }
+        if (val < v_min_raw) v_min_raw = val;
     }
-  }
-  if (temps==90000){
-    int adcValue =  analogRead(MEASURE_PIN)+150;;//fix temporaire pour compenser la résistance interne du dac (1,5Kohms)
-    Serial.print("ADC Value: ");
-    Serial.println(adcValue);
-    float vraiValue = adcValue * 3.3/ 4095.0; // Convertir la valeur ADC en tension (0-3.3V)
-    Serial.print("Tension: ");
-    Serial.print(vraiValue);
-    Serial.println(" V");
-    float impedance = 5.0*10000.0/vraiValue - 10000.0; // Calculer l'impédance (en ohms)
-    Serial.print("Impédance: ");
-    Serial.print(impedance);
-    Serial.println(" Ohms");
-    temps=0;
-  } 
-  temps++;
 
-
+    i++;
+    if (i >= SINE_STEPS) {
+        i = 0;
+        final_max = v_max_raw;
+        final_min = v_min_raw;
+        v_max_raw = 0;
+        v_min_raw = 4095;
+        data_ready = true;
+    }
 }
-/*
+
+void setup() {
+    Serial.begin(115200);
+    delay(2000);
+    Serial.println("Test DAC lancé...");
+
+    dac_output_enable(DAC_CHAN);
+
+    // Pour 1kHz avec 25 points : 1ms / 25 = 40µs par interruption
+    timer = timerBegin(0, 80, true);
+    timerAttachInterrupt(timer, &onTimer, true);
+    timerAlarmWrite(timer, 40, true); 
+    timerAlarmEnable(timer);
+}
+
 void loop() {
-    //Temperature();
-    int adcValue =  analogRead(MEASURE_PIN);;//fix temporaire pour compenser la tension de 0.5V à l'entrée du ADC
-    Serial.println(adcValue);
-    int adcValue =  analogRead(MEASURE_PIN)+150;;//fix temporaire pour compenser la tension de 0.5V à l'entrée du ADC
-    Serial.print("ADC Value: ");
-    Serial.println(adcValue);
-    float vraiValue = adcValue * 3.3/ 4095.0; // Convertir la valeur ADC en tension (0-3.3V)
-    Serial.print("Tension: ");
-    Serial.print(vraiValue);
-    Serial.println(" V");
-    float impedance = 5.0*10000.0/vraiValue - 10000.0; // Calculer l'impédance (en ohms)
-    Serial.print("Impédance: ");
-    Serial.print(impedance);
-    Serial.println(" Ohms");
-    delay(1000);
-}*/
+    if (data_ready) {
+        data_ready = false;
+        
+        // Calcul de la tension Crête-à-Crête
+        float v_pp = ((final_max - final_min) * 3.3) / 4095.0;
+
+        Serial.print("Vpp mesure: ");
+        Serial.print(v_pp);
+        Serial.println(" V");
+    }
+    delay(100); // On affiche 10 fois par seconde
+}
