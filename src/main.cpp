@@ -17,7 +17,7 @@
 #define ADC_PIN2 39
 #define ADC_PIN3 34
 #define OUTPUT_PIN 25           // Pin GPIO pour ESP32
-#define MEASURE_PIN 34          // Exemple d'entrée ADC pour ESP32
+#define MEASURE_PIN 32          // Exemple d'entrée ADC pour ESP32
 
 
 int dephasage=0;
@@ -49,7 +49,7 @@ void IRAM_ATTR Timer0_ISR()
   // Send SineTable Values To DAC One By One
   dac_output_voltage(DAC_CHANNEL_1, valuesinus[i]);
   if (i=25){
-    dephasage=time();
+    //dephasage=time();
 
   }
   if(i == 100)
@@ -60,6 +60,7 @@ void IRAM_ATTR Timer0_ISR()
 
 void setup() 
 {
+  analogReadResolution(12); // Pour être sûr d'avoir la précision max
   // Configure Timer0 Interrupt
   Timer0_Cfg = timerBegin(0, 80, true);
   timerAttachInterrupt(Timer0_Cfg, &Timer0_ISR, true);
@@ -68,10 +69,13 @@ void setup()
   // Enable DAC1 Channel's Output
   dac_output_enable(DAC_CHANNEL_1);
   Serial.begin(115200);
-  Serial.println("config terminéé");
+  Serial.println("config terminee");
 }
 
-
+int mesure() {
+  int adcValue = analogRead(MEASURE_PIN);
+  return adcValue;
+}
 
 //obtenir la température
 void Temperature() {
@@ -100,5 +104,18 @@ void Temperature() {
 }
 
 void loop() {
-    Temperature();
+    //Temperature();
+
+    int adcValue =  analogRead(MEASURE_PIN)+150;;//fix temporaire pour compenser la tension de 0.5V à l'entrée du ADC
+    Serial.print("ADC Value: ");
+    Serial.println(adcValue);
+    float vraiValue = adcValue * 3.3/ 4095.0; // Convertir la valeur ADC en tension (0-3.3V)
+    Serial.print("Tension: ");
+    Serial.print(vraiValue);
+    Serial.println(" V");
+    float impedance = 5.0*10000.0/vraiValue - 10000.0; // Calculer l'impédance (en ohms)
+    Serial.print("Impédance: ");
+    Serial.print(impedance);
+    Serial.println(" Ohms");
+    delay(1000);
 }
