@@ -1,4 +1,3 @@
-#pragma once
 #include <Arduino.h>
 const float R = 10000.0; 
 const float VREF_PIN_SUPPLY = 3.3;  // Tension d'alimentation (5V ou 3.3V)

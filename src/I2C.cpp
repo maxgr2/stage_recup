@@ -1,4 +1,3 @@
-#pragma once
 #include <Arduino.h>
 
 /*
@@ -6,7 +5,7 @@ Ce fichier a pour but de faire toute la gestion de l'interface I2C
 dans notre cas ils commande donc l'expadeur et donc les SSR
 Et le module INA237
 */
-
+#include "I2C.h"
 #include <Wire.h>
 
 #define MCP_ADDR 0x20
@@ -16,6 +15,8 @@ Et le module INA237
 // Registres
 #define OLATA 0x14
 #define OLATB 0x15
+
+
 
 void mcpWrite(uint8_t reg, uint8_t val) {
   Wire.beginTransmission(MCP_ADDR);
@@ -78,8 +79,8 @@ void ssrSetAll(uint8_t maskA, uint8_t maskB) {
 void inaWrite16(uint8_t reg, uint16_t val) {
   Wire.beginTransmission(INA237_ADDR);
   Wire.write(reg);
-  Wire.write((val >> 8) & 0xFF);  // MSB en premier
-  Wire.write(val & 0xFF);
+  Wire.write((val >> 8) & 0xFF);  // MSB en premier INA veux un ACK (acknowledge sequence) tous les 8 bits
+  Wire.write(val & 0xFF); //Pour limiter à 16 bits
   Wire.endTransmission();
 }
 
@@ -91,4 +92,36 @@ int16_t inaRead16(uint8_t reg) {
   uint8_t msb = Wire.read();
   uint8_t lsb = Wire.read();
   return (int16_t)((msb << 8) | lsb);
+}
+
+float inaLireTensionBus() {
+  int16_t raw = inaRead16(0x05);
+  return raw ; 
+}
+
+float inaLireTensionShunt() {
+  int16_t raw = inaRead16(0x04);
+  return raw ;
+}
+
+float inaLireCourant() {
+  float current_lsb = 0.150 / 32768.0; // 0.150 A (maximum du courant) / 2^15 (résolution du convertisseur)
+  int16_t raw = inaRead16(0x04);
+  return raw * current_lsb;
+}
+
+float inaLireTemperature() {
+  int16_t raw = inaRead16(0x06);
+  raw >>= 4;  // Les 4 bits LSB sont inutilisés
+  return raw * 0.125;
+}
+
+
+INA237_Mesures inaLireTout() {
+  INA237_Mesures m;
+  m.tensionBus_V    = inaLireTensionBus();
+  m.courant_A       = inaLireCourant();
+  m.tensionShunt_mV = inaLireTensionShunt();
+  m.temperature_C   = inaLireTemperature();
+  return m;
 }
