@@ -1,10 +1,8 @@
 #pragma once
-#include <BLEDevice.h>
-#include <BLEUtils.h>
-#include <BLEServer.h>
-#include <string>
-#include <Arduino.h>
 #include "I2C.h"
+#include <BluetoothSerial.h>
 
+class BLEAdvertising;
 
-void envoierDonnees(DonneesCapteur data, BLEAdvertising *pAdvertising);
+void initBluetooth();
+void envoyerDonnees(DonneesCapteur data);

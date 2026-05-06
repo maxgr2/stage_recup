@@ -1,7 +1,6 @@
 #pragma once
 #include <Arduino.h>
 
-
 struct DonneesCapteur {
   float tensionBus_V;
   float courant_A;
