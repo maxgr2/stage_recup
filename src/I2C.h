@@ -1,16 +1,16 @@
+#pragma once
 #include <Arduino.h>
 
 
-struct INA237_Mesures {
+struct DonneesCapteur {
   float tensionBus_V;
   float courant_A;
   float puissance_W;
   float tensionShunt_mV;
   float temperature_C;
+  float temperaturebatterie_C;//cette donnée doit être rempli plus tard par le capteur de temperature
 };
 
-
-// ===== I2C.cpp - Prototypes =====
 
 // MCP23017 I/O Expander functions
 void mcpWrite(uint8_t reg, uint8_t val);

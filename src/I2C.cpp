@@ -117,11 +117,14 @@ float inaLireTemperature() {
 }
 
 
-INA237_Mesures inaLireTout() {
-  INA237_Mesures m;
+DonneesCapteur inaLire_1_Batterie() {
+
+  DonneesCapteur m;
   m.tensionBus_V    = inaLireTensionBus();
   m.courant_A       = inaLireCourant();
   m.tensionShunt_mV = inaLireTensionShunt();
   m.temperature_C   = inaLireTemperature();
+  m.temperaturebatterie_C = 0; // Cette valeur devra être remplie par le capteur de température
   return m;
 }
+
