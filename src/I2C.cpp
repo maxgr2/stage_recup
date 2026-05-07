@@ -76,6 +76,58 @@ void ssrSetAll(uint8_t maskA, uint8_t maskB) {
 }
 
 
+void alimentation_off(int bat) {
+  if (bat == 1) {
+    ssrOff(7); // SSR1 pour batterie 1
+  } else if (bat == 2) {
+    ssrOff(4); // SSR9 pour batterie 2
+  } else if (bat == 3) {
+    ssrOff(2); // SSR9 pour batterie 2
+  }else if (bat == 4) {
+    ssrOff(0); // SSR9 pour batterie 2
+  }
+  else {
+    Serial.println("Batterie inconnue, impossible de couper l'alimentation");
+  }
+}
+
+
+void alimentation_on(int bat) {
+  if (bat == 1) {
+    ssrOn(7); // SSR1 pour batterie 1
+  } else if (bat == 2) {
+    ssrOn(4); // SSR9 pour batterie 2
+  } else if (bat == 3) {
+    ssrOn(2); // SSR9 pour batterie 2
+  }else if (bat == 4) {
+    ssrOn(0); // SSR9 pour batterie 2
+  }
+  else {
+    Serial.println("Batterie inconnue, impossible d'allumer l'alimentation");
+  }
+}
+
+void mesures(int bat){
+  ssrOff(6);
+  ssrOff(5);
+  ssrOff(3);
+  ssrOff(1);
+  if (bat==1){
+    ssrOn(6);
+  }
+  if (bat==2){
+    ssrOn(5);
+  }
+   if (bat==3){
+    ssrOn(3);
+  }
+   if (bat==4){
+    ssrOn(1);
+  }
+
+  DonneesCapteur m = inaLire_1_Batterie();
+}
+
 void inaWrite16(uint8_t reg, uint16_t val) {
   Wire.beginTransmission(INA237_ADDR);
   Wire.write(reg);
@@ -118,9 +170,10 @@ float inaLireTemperature() {
 
 
 DonneesCapteur inaLire_1_Batterie() {
-
+  
   DonneesCapteur m;
   m.tensionBus_V    = inaLireTensionBus();
+  ssrOn(8);
   m.courant_A       = inaLireCourant();
   m.tensionShunt_mV = inaLireTensionShunt();
   m.temperature_C   = inaLireTemperature();

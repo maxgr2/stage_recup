@@ -14,7 +14,7 @@ BLEAdvertising *pAdvertising;
 
 
 void setup() {
-    BLEDevice::init("");
+    BLEDevice::init("Esp_batterie");
     delay(1000);
     //config I2C
     Wire.begin(); //I2C init
@@ -46,13 +46,13 @@ void loop() {
 
     //data = inaLire_1_Batterie(); // On lit les données du capteur INA237 pour une batterie 
     data.tensionBus_V = 12.12;
-    data.courant_A = 124.5;
+    data.courant_A = 12.5;
     data.puissance_W = 12.0;
     data.tensionShunt_mV =123.12; 
     data.temperature_C = 124.12;
     data.temperaturebatterie_C = resistance; // On suppose que la résistance est proportionnelle
 
-    envoierDonnees(data, pAdvertising); // On envoie les données via Bluetooth
+    envoierDonnees(data, pAdvertising, 1); // On envoie les données via Bluetooth
     Serial.print("Rx = ");
     Serial.print(resistance);
     Serial.println(" Ω");

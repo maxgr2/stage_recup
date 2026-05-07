@@ -1,0 +1,3226 @@
+{
+  "CE3091D4_1": {
+    "info": {
+      "chip_id": "CE3091D4",
+      "num_batterie": 1,
+      "premiere_vue": "2026-05-07T22:55:05.672306"
+    },
+    "premieres": [
+      {
+        "timestamp": "2026-05-07T22:55:05.672306",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:55:05.801680",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:55:10.683891",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.7
+      },
+      {
+        "timestamp": "2026-05-07T22:55:10.962407",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.7
+      },
+      {
+        "timestamp": "2026-05-07T22:55:13.564366",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:55:15.789319",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:55:16.064071",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:55:18.204598",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.7
+      },
+      {
+        "timestamp": "2026-05-07T22:55:18.340713",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.7
+      },
+      {
+        "timestamp": "2026-05-07T22:55:23.260398",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:55:23.599305",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:55:26.087263",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T22:55:28.232655",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:55:28.511729",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:55:30.734654",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 23.1
+      },
+      {
+        "timestamp": "2026-05-07T22:55:31.091689",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 23.1
+      },
+      {
+        "timestamp": "2026-05-07T22:55:33.198706",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.8
+      },
+      {
+        "timestamp": "2026-05-07T22:55:35.753755",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 21.9
+      },
+      {
+        "timestamp": "2026-05-07T22:55:40.943438",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:55:41.134166",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:55:43.228306",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:55:43.490564",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:55:45.827562",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T22:55:45.960094",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T22:55:48.329029",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T22:55:48.460852",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T22:55:50.921122",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:55:51.047654",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:55:53.585460",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.9
+      },
+      {
+        "timestamp": "2026-05-07T22:55:53.724706",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.9
+      },
+      {
+        "timestamp": "2026-05-07T22:55:58.268555",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:56:00.865644",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T22:56:03.376528",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:56:03.509563",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:56:03.644179",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:56:05.971227",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T22:56:06.102182",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T22:56:08.391895",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:56:08.665923",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:56:11.078125",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.7
+      },
+      {
+        "timestamp": "2026-05-07T22:56:13.593979",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:56:15.906941",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T22:56:18.420923",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:56:18.695207",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:56:21.091629",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:56:23.529663",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:56:25.942646",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:56:28.447582",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 21.9
+      },
+      {
+        "timestamp": "2026-05-07T22:56:28.582433",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 21.9
+      },
+      {
+        "timestamp": "2026-05-07T22:56:31.047847",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:56:31.229161",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:56:33.416767",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:56:36.007652",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T22:56:36.149743",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T22:56:38.381963",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:56:38.474223",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:56:38.701513",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:56:40.928334",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:56:41.012403",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:56:41.146685",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:56:43.395037",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:56:48.408216",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:56:48.546418",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:56:48.680647",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:56:51.049241",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T22:56:51.183114",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T22:56:51.376750",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T22:56:53.691260",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:56:53.821413",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:56:56.248137",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.8
+      },
+      {
+        "timestamp": "2026-05-07T22:56:56.385967",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.8
+      },
+      {
+        "timestamp": "2026-05-07T22:56:58.796334",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:57:01.164909",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.8
+      },
+      {
+        "timestamp": "2026-05-07T22:57:03.494654",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:57:03.818162",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:57:11.061276",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:57:11.333781",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:57:13.519200",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T22:57:13.658226",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T22:57:16.083426",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:57:18.534405",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T22:57:18.665119",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T22:57:21.219415",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.7
+      },
+      {
+        "timestamp": "2026-05-07T22:57:21.273151",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.7
+      },
+      {
+        "timestamp": "2026-05-07T22:57:23.732100",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T22:57:23.862361",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T22:57:26.057119",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T22:57:26.315985",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T22:57:28.613745",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T22:57:31.255972",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:57:31.307775",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:57:33.576651",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:57:33.708054",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:57:36.133793",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T22:57:36.454464",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T22:57:38.641912",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:57:38.910087",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:57:41.282893",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T22:57:41.416228",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T22:57:43.648639",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      }
+    ],
+    "recentes": [
+      {
+        "timestamp": "2026-05-07T22:55:05.672306",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:55:05.801680",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:55:10.683891",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.7
+      },
+      {
+        "timestamp": "2026-05-07T22:55:10.962407",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.7
+      },
+      {
+        "timestamp": "2026-05-07T22:55:13.564366",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:55:15.789319",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:55:16.064071",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:55:18.204598",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.7
+      },
+      {
+        "timestamp": "2026-05-07T22:55:18.340713",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.7
+      },
+      {
+        "timestamp": "2026-05-07T22:55:23.260398",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:55:23.599305",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:55:26.087263",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T22:55:28.232655",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:55:28.511729",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:55:30.734654",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 23.1
+      },
+      {
+        "timestamp": "2026-05-07T22:55:31.091689",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 23.1
+      },
+      {
+        "timestamp": "2026-05-07T22:55:33.198706",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.8
+      },
+      {
+        "timestamp": "2026-05-07T22:55:35.753755",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 21.9
+      },
+      {
+        "timestamp": "2026-05-07T22:55:40.943438",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:55:41.134166",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:55:43.228306",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:55:43.490564",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:55:45.827562",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T22:55:45.960094",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T22:55:48.329029",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T22:55:48.460852",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T22:55:50.921122",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:55:51.047654",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:55:53.585460",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.9
+      },
+      {
+        "timestamp": "2026-05-07T22:55:53.724706",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.9
+      },
+      {
+        "timestamp": "2026-05-07T22:55:58.268555",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:56:00.865644",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T22:56:03.376528",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:56:03.509563",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:56:03.644179",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:56:05.971227",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T22:56:06.102182",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T22:56:08.391895",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:56:08.665923",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:56:11.078125",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.7
+      },
+      {
+        "timestamp": "2026-05-07T22:56:13.593979",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:56:15.906941",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T22:56:18.420923",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:56:18.695207",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:56:21.091629",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:56:23.529663",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:56:25.942646",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:56:28.447582",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 21.9
+      },
+      {
+        "timestamp": "2026-05-07T22:56:28.582433",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 21.9
+      },
+      {
+        "timestamp": "2026-05-07T22:56:31.047847",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:56:31.229161",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:56:33.416767",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:56:36.007652",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T22:56:36.149743",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T22:56:38.381963",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:56:38.474223",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:56:38.701513",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:56:40.928334",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:56:41.012403",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:56:41.146685",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:56:43.395037",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:56:48.408216",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:56:48.546418",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:56:48.680647",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:56:51.049241",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T22:56:51.183114",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T22:56:51.376750",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T22:56:53.691260",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:56:53.821413",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:56:56.248137",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.8
+      },
+      {
+        "timestamp": "2026-05-07T22:56:56.385967",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.8
+      },
+      {
+        "timestamp": "2026-05-07T22:56:58.796334",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:57:01.164909",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.8
+      },
+      {
+        "timestamp": "2026-05-07T22:57:03.494654",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:57:03.818162",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:57:11.061276",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:57:11.333781",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:57:13.519200",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T22:57:13.658226",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T22:57:16.083426",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:57:18.534405",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T22:57:18.665119",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T22:57:21.219415",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.7
+      },
+      {
+        "timestamp": "2026-05-07T22:57:21.273151",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.7
+      },
+      {
+        "timestamp": "2026-05-07T22:57:23.732100",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T22:57:23.862361",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T22:57:26.057119",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T22:57:26.315985",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T22:57:28.613745",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T22:57:31.255972",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:57:31.307775",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:57:33.576651",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:57:33.708054",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:57:36.133793",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T22:57:36.454464",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T22:57:38.641912",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:57:38.910087",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:57:41.282893",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T22:57:41.416228",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T22:57:43.648639",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:57:43.786318",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:57:43.916720",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:57:46.295614",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T22:57:48.852251",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 21.9
+      },
+      {
+        "timestamp": "2026-05-07T22:57:51.398437",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:57:51.532483",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:57:53.852400",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T22:57:56.372786",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T22:57:58.653613",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:57:59.054952",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:58:01.160290",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T22:58:01.381204",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T22:58:06.127789",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:58:06.261082",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:58:08.866790",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 21.5
+      },
+      {
+        "timestamp": "2026-05-07T22:58:08.953144",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 21.5
+      },
+      {
+        "timestamp": "2026-05-07T22:58:11.187456",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:58:11.324897",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:58:13.688974",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:58:13.829814",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:58:14.018191",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:58:16.241848",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:58:16.504225",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:58:18.706142",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T22:58:18.972636",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T22:58:21.362204",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 21.9
+      },
+      {
+        "timestamp": "2026-05-07T22:58:23.800906",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:58:26.588280",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:58:31.287632",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.8
+      },
+      {
+        "timestamp": "2026-05-07T22:58:31.499974",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.8
+      },
+      {
+        "timestamp": "2026-05-07T22:58:33.741368",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.8
+      },
+      {
+        "timestamp": "2026-05-07T22:58:33.881376",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.8
+      },
+      {
+        "timestamp": "2026-05-07T22:58:34.149228",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.8
+      },
+      {
+        "timestamp": "2026-05-07T22:58:36.430141",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:58:36.560555",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:58:38.807875",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:58:38.938064",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:58:39.070424",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:58:41.269104",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T22:58:43.983711",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T22:58:44.113303",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T22:58:46.280902",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T22:58:46.557386",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T22:58:51.647216",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:58:54.034960",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.8
+      },
+      {
+        "timestamp": "2026-05-07T22:58:54.124898",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.8
+      },
+      {
+        "timestamp": "2026-05-07T22:58:56.503015",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:58:56.634535",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:58:58.958230",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:58:59.100474",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:59:01.688650",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:59:03.878910",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.7
+      },
+      {
+        "timestamp": "2026-05-07T22:59:06.756805",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T22:59:11.455681",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T22:59:11.594289",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T22:59:14.139101",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:59:18.969001",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:59:19.099681",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:59:19.188450",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:59:21.380144",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:59:21.642630",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:59:23.929583",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T22:59:26.348211",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.7
+      },
+      {
+        "timestamp": "2026-05-07T22:59:26.768214",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.7
+      },
+      {
+        "timestamp": "2026-05-07T22:59:29.043398",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:59:31.504890",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T22:59:33.870142",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:59:34.003884",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:59:34.322347",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:59:36.648046",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T22:59:38.972069",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:59:41.441247",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:59:41.573467",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T22:59:44.082313",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 21.9
+      },
+      {
+        "timestamp": "2026-05-07T22:59:46.455132",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T22:59:49.358165",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T22:59:51.554609",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T22:59:54.065787",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 21.9
+      },
+      {
+        "timestamp": "2026-05-07T22:59:54.399956",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 21.9
+      },
+      {
+        "timestamp": "2026-05-07T22:59:56.477743",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T23:00:01.670912",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T23:00:01.809334",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T23:00:04.271816",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 21.8
+      },
+      {
+        "timestamp": "2026-05-07T23:00:04.400036",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 21.8
+      },
+      {
+        "timestamp": "2026-05-07T23:00:06.732183",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T23:00:08.967768",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T23:00:11.522000",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T23:00:11.706982",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T23:00:14.246325",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T23:00:14.384289",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T23:00:16.703031",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.5
+      },
+      {
+        "timestamp": "2026-05-07T23:00:19.085391",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 21.9
+      },
+      {
+        "timestamp": "2026-05-07T23:00:19.218074",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 21.9
+      },
+      {
+        "timestamp": "2026-05-07T23:00:19.407515",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 21.9
+      },
+      {
+        "timestamp": "2026-05-07T23:00:21.727282",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T23:00:21.910039",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T23:00:24.148367",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T23:00:24.333842",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T23:00:26.790876",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T23:00:29.067445",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T23:00:29.254859",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T23:00:29.390434",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T23:00:31.528872",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T23:00:31.942174",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T23:00:34.126526",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T23:00:34.265201",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T23:00:36.872092",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 23.0
+      },
+      {
+        "timestamp": "2026-05-07T23:00:39.500381",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T23:00:41.972309",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T23:00:46.750038",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T23:00:46.883405",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T23:00:49.126205",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 21.9
+      },
+      {
+        "timestamp": "2026-05-07T23:00:54.490277",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T23:00:56.649433",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T23:00:56.920553",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T23:00:57.053256",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T23:00:59.245456",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.9
+      },
+      {
+        "timestamp": "2026-05-07T23:00:59.423348",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.9
+      },
+      {
+        "timestamp": "2026-05-07T23:01:01.801452",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T23:01:04.170337",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T23:01:04.247457",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T23:01:06.675171",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T23:01:06.956998",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T23:01:09.178045",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.8
+      },
+      {
+        "timestamp": "2026-05-07T23:01:14.193821",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T23:01:14.537833",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T23:01:16.879176",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 21.8
+      },
+      {
+        "timestamp": "2026-05-07T23:01:19.205360",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T23:01:22.029314",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T23:01:24.318835",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.2
+      },
+      {
+        "timestamp": "2026-05-07T23:01:29.377413",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.7
+      },
+      {
+        "timestamp": "2026-05-07T23:01:32.013248",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.7
+      },
+      {
+        "timestamp": "2026-05-07T23:01:32.139269",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.7
+      },
+      {
+        "timestamp": "2026-05-07T23:01:34.291376",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.6
+      },
+      {
+        "timestamp": "2026-05-07T23:01:36.982993",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.4
+      },
+      {
+        "timestamp": "2026-05-07T23:01:39.310945",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T23:01:39.440459",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T23:01:39.527828",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T23:01:42.046757",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T23:01:44.329985",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.9
+      },
+      {
+        "timestamp": "2026-05-07T23:01:44.413482",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.9
+      },
+      {
+        "timestamp": "2026-05-07T23:01:46.968628",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.9
+      },
+      {
+        "timestamp": "2026-05-07T23:01:47.129162",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.9
+      },
+      {
+        "timestamp": "2026-05-07T23:01:49.336055",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.7
+      },
+      {
+        "timestamp": "2026-05-07T23:01:51.897988",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T23:01:52.030227",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T23:01:54.305739",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 21.7
+      },
+      {
+        "timestamp": "2026-05-07T23:01:54.488523",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 21.7
+      },
+      {
+        "timestamp": "2026-05-07T23:01:56.904772",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T23:01:57.040117",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T23:01:57.177871",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.0
+      },
+      {
+        "timestamp": "2026-05-07T23:02:01.828073",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.7
+      },
+      {
+        "timestamp": "2026-05-07T23:02:07.109822",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T23:02:07.191455",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.1
+      },
+      {
+        "timestamp": "2026-05-07T23:02:09.302032",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T23:02:09.434538",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      },
+      {
+        "timestamp": "2026-05-07T23:02:09.706229",
+        "tensionBus_V": 12.12,
+        "courant_A": 12.5,
+        "puissance_W": 12.0,
+        "tensionShunt_mV": 123.12,
+        "temperature_C": 124.1,
+        "temperaturebatterie_C": 22.3
+      }
+    ]
+  }
+}

@@ -22,6 +22,8 @@ void ssrOff(uint8_t ssrIndex);
 void ssrToggle(uint8_t ssrIndex);
 void ssrAllOff();
 void ssrSetAll(uint8_t maskA, uint8_t maskB);
+void alimentation_off(int bat);
+void alimentation_on(int bat);
 
 // INA237 Current/Voltage Sensor functions
 void inaWrite16(uint8_t reg, uint16_t val);
@@ -30,3 +32,4 @@ float inaLireTensionBus();
 float inaLireTensionShunt();
 float inaLireCourant();
 float inaLireTemperature();
+DonneesCapteur inaLire_1_Batterie();

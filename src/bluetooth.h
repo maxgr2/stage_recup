@@ -7,4 +7,4 @@
 #include "I2C.h"
 
 
-void envoierDonnees(DonneesCapteur data, BLEAdvertising *pAdvertising);
+void envoierDonnees(DonneesCapteur data, BLEAdvertising *pAdvertising, int NUMERO_BATTERIE);

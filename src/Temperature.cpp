@@ -11,24 +11,24 @@ float lireVoltage(int pin) {
 
 
 float temperature(int cap) {
-    float Vref;
+    float Vout;
     if (cap < 0 || cap > 4) {
         return -1.0; // On a que 4 capteur de température
     }
     if (cap == 1) {
-        Vref = lireVoltage(26); 
+        Vout = lireVoltage(26); 
     } 
     if (cap == 2) {
-        Vref = lireVoltage(27);
+        Vout = lireVoltage(27);
     }
     if (cap == 3) {
-        Vref = lireVoltage(14); // Capteur de référence
+        Vout = lireVoltage(14); // Capteur de référence
     }
     if (cap == 4) {
-        Vref = lireVoltage(12); // Capteur de mesure
+        Vout = lireVoltage(12); // Capteur de mesure
     }
        
-    float Vout = lireVoltage(26);
+    float Vref = lireVoltage(33);
 
     float Vcc_calc = Vref * (R + R) / R;
     float denominateur = Vcc_calc - Vout;
@@ -37,5 +37,6 @@ float temperature(int cap) {
     }
 
     float Rx = R * Vout / denominateur;
-    return Rx;
+    float temperature = 1/(1/298.15 + (1.0/3950.0) * log(Rx/10000.0))-272.15; 
+    return temperature;
 }
