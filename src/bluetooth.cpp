@@ -20,6 +20,7 @@ void envoierDonnees(DonneesCapteur data, BLEAdvertising *pAdvertising, int NUMER
     uint8_t mac[6];
     esp_efuse_mac_get_default(mac);
     uint32_t chipID = (mac[2] << 24) | (mac[3] << 16) | (mac[4] << 8) | mac[5];
+    chipID =chipID+1; //Pour tester coté serveur    
     uint8_t* idBytes = (uint8_t*)&chipID;
     for (int i = 0; i < 4; i++) {
         myData += (char)idBytes[i];

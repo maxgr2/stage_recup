@@ -1,29 +1,102 @@
 import asyncio
 import struct
-import json
-import os
+import sqlite3
 from datetime import datetime
-from collections import deque
 from bleak import BleakScanner
 
 # ─── Configuration ───────────────────────────────────────────────────────────
-MANUFACTURER_ID  = 65535
-ESP32_NOM        = "Esp_batterie"
-TAILLE_STRUCT    = 4 + 1 + (6 * 2)  # 17 octets
-FICHIER_JSON     = "batteries.json"
-MAX_RECENTES     = 500
-MAX_PREMIERES    = 100
+MANUFACTURER_ID = 65535
+ESP32_NOM       = "Esp_batterie"
+TAILLE_STRUCT   = 4 + 1 + (6 * 2)  # 17 octets
+FICHIER_DB      = "batteries.db"
 
-# ─── Stockage en mémoire ─────────────────────────────────────────────────────
-# Clé : "CHIPID_NUMBAT" ex: "A1B2C3D4_0"
-# Valeur : {
-#   "info": {...},
-#   "premieres": [...],   # 100 premières mesures reçues
-#   "recentes": deque([], 500)  # 500 dernières mesures
-# }
-batteries = {}
+# ─── Base de données ─────────────────────────────────────────────────────────
+def init_db(conn: sqlite3.Connection):
+    """Crée les tables si elles n'existent pas encore."""
+    conn.executescript("""
+        CREATE TABLE IF NOT EXISTS batteries (
+            id            INTEGER PRIMARY KEY AUTOINCREMENT,
+            chip_id       TEXT NOT NULL,
+            num_batterie  INTEGER NOT NULL,
+            premiere_vue  TEXT NOT NULL,
+            UNIQUE(chip_id, num_batterie)   -- une seule entrée par batterie
+        );
 
-# ─── Décodage ────────────────────────────────────────────────────────────────
+        CREATE TABLE IF NOT EXISTS mesures (
+            id                     INTEGER PRIMARY KEY AUTOINCREMENT,
+            chip_id                TEXT NOT NULL,
+            num_batterie           INTEGER NOT NULL,
+            timestamp              TEXT NOT NULL,
+            tensionBus_V           REAL,
+            courant_A              REAL,
+            puissance_W            REAL,
+            tensionShunt_mV        REAL,
+            temperature_C          REAL,
+            temperaturebatterie_C  REAL
+        );
+
+        -- Index pour accélérer les requêtes par batterie et par date
+        CREATE INDEX IF NOT EXISTS idx_mesures_batterie
+            ON mesures(chip_id, num_batterie);
+        CREATE INDEX IF NOT EXISTS idx_mesures_timestamp
+            ON mesures(timestamp);
+    """)
+    conn.commit()
+
+def enregistrer_batterie(conn: sqlite3.Connection, chip_id: str, num_batterie: int, timestamp: str):
+    """Enregistre la batterie si elle n'existe pas encore."""
+    conn.execute("""
+        INSERT OR IGNORE INTO batteries (chip_id, num_batterie, premiere_vue)
+        VALUES (?, ?, ?)
+    """, (chip_id, num_batterie, timestamp))
+    conn.commit()
+
+def enregistrer_mesure(conn: sqlite3.Connection, donnees: dict):
+    """Insère une nouvelle mesure et garde seulement les 500 dernières."""
+    conn.execute("""
+        INSERT INTO mesures
+            (chip_id, num_batterie, timestamp,
+             tensionBus_V, courant_A, puissance_W,
+             tensionShunt_mV, temperature_C, temperaturebatterie_C)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """, (
+        donnees["chip_id"],
+        donnees["num_batterie"],
+        donnees["timestamp"],
+        donnees["tensionBus_V"],
+        donnees["courant_A"],
+        donnees["puissance_W"],
+        donnees["tensionShunt_mV"],
+        donnees["temperature_C"],
+        donnees["temperaturebatterie_C"],
+    ))
+
+    # Supprimer les mesures au-delà des 500 dernières pour cette batterie
+    conn.execute("""
+        DELETE FROM mesures
+        WHERE chip_id = ? AND num_batterie = ?
+        AND id NOT IN (
+            SELECT id FROM mesures
+            WHERE chip_id = ? AND num_batterie = ?
+            ORDER BY id DESC
+            LIMIT 500
+        )
+    """, (
+        donnees["chip_id"], donnees["num_batterie"],
+        donnees["chip_id"], donnees["num_batterie"],
+    ))
+
+    conn.commit()
+
+def compter_mesures(conn: sqlite3.Connection, chip_id: str, num_batterie: int) -> int:
+    """Retourne le nombre de mesures enregistrées pour une batterie."""
+    cur = conn.execute("""
+        SELECT COUNT(*) FROM mesures
+        WHERE chip_id = ? AND num_batterie = ?
+    """, (chip_id, num_batterie))
+    return cur.fetchone()[0]
+
+# ─── Décodage BLE ────────────────────────────────────────────────────────────
 def decoder_payload(raw_bytes: bytes) -> dict | None:
     if len(raw_bytes) != TAILLE_STRUCT:
         print(f"Taille inattendue : {len(raw_bytes)} octets (attendu {TAILLE_STRUCT})")
@@ -45,83 +118,12 @@ def decoder_payload(raw_bytes: bytes) -> dict | None:
         "timestamp":             datetime.now().isoformat(),
     }
 
-# ─── Gestion des batteries ───────────────────────────────────────────────────
-def clé_batterie(chip_id: str, num_batterie: int) -> str:
-    return f"{chip_id}_{num_batterie}"
-
-def enregistrer_mesure(donnees: dict):
-    clé = clé_batterie(donnees["chip_id"], donnees["num_batterie"])
-
-    # Créer l'entrée si nouvelle batterie
-    if clé not in batteries:
-        batteries[clé] = {
-            "info": {
-                "chip_id":      donnees["chip_id"],
-                "num_batterie": donnees["num_batterie"],
-                "premiere_vue": donnees["timestamp"],
-            },
-            "premieres": [],        # max 100
-            "recentes":  deque(maxlen=MAX_RECENTES),  # max 500
-        }
-        print(f"  Nouvelle batterie détectée : {clé}")
-
-    bat = batteries[clé]
-
-    # Mesure à sauvegarder (sans chip_id et num_batterie, déjà dans la clé)
-    mesure = {
-        "timestamp":             donnees["timestamp"],
-        "tensionBus_V":          donnees["tensionBus_V"],
-        "courant_A":             donnees["courant_A"],
-        "puissance_W":           donnees["puissance_W"],
-        "tensionShunt_mV":       donnees["tensionShunt_mV"],
-        "temperature_C":         donnees["temperature_C"],
-        "temperaturebatterie_C": donnees["temperaturebatterie_C"],
-    }
-
-    # Sauvegarder dans premières (si pas encore plein)
-    if len(bat["premieres"]) < MAX_PREMIERES:
-        bat["premieres"].append(mesure)
-
-    # Toujours sauvegarder dans recentes
-    bat["recentes"].append(mesure)
-
-# ─── Sauvegarde JSON ─────────────────────────────────────────────────────────
-def sauvegarder_json():
-    # Convertir les deque en liste pour la sérialisation JSON
-    données_json = {}
-    for clé, bat in batteries.items():
-        données_json[clé] = {
-            "info":      bat["info"],
-            "premieres": bat["premieres"],
-            "recentes":  list(bat["recentes"]),
-        }
-
-    with open(FICHIER_JSON, "w", encoding="utf-8") as f:
-        json.dump(données_json, f, indent=2, ensure_ascii=False)
-
-def charger_json():
-    """Recharge les données existantes au démarrage du programme"""
-    if not os.path.exists(FICHIER_JSON):
-        return
-
-    with open(FICHIER_JSON, "r", encoding="utf-8") as f:
-        données_json = json.load(f)
-
-    for clé, bat in données_json.items():
-        batteries[clé] = {
-            "info":      bat["info"],
-            "premieres": bat["premieres"],
-            "recentes":  deque(bat["recentes"], maxlen=MAX_RECENTES),
-        }
-    print(f"{len(batteries)} batterie(s) chargée(s) depuis {FICHIER_JSON}")
-
 # ─── Affichage ───────────────────────────────────────────────────────────────
-def afficher_donnees(donnees: dict):
-    clé = clé_batterie(donnees["chip_id"], donnees["num_batterie"])
-    bat = batteries[clé]
+def afficher_donnees(donnees: dict, nb_mesures: int):
+    clé = f"{donnees['chip_id']}_{donnees['num_batterie']}"
     print(f"\n{'─' * 45}")
-    print(f"  Batterie     → {clé}")
-    print(f"  Mesures      → {len(bat['recentes'])} récentes | {len(bat['premieres'])} premières")
+    print(f"  Batterie     → {clé}  ({nb_mesures}/500 mesures)")
+    print(f"  Horodatage   → {donnees['timestamp']}")
     print(f"{'─' * 45}")
     print(f"  Tension bus    : {donnees['tensionBus_V']:.2f} V")
     print(f"  Courant        : {donnees['courant_A']:.3f} A")
@@ -131,32 +133,35 @@ def afficher_donnees(donnees: dict):
     print(f"  Temp. batterie : {donnees['temperaturebatterie_C']:.1f} °C")
     print(f"{'─' * 45}")
 
-# ─── Callback BLE ───────────────────────────────────────────────────────────
-def detection_callback(device, advertisement_data):
-    if device.name != ESP32_NOM:
-        return
+# ─── Callback BLE ────────────────────────────────────────────────────────────
+def make_callback(conn: sqlite3.Connection):
+    def detection_callback(device, advertisement_data):
+        if device.name != ESP32_NOM:
+            return
 
-    manufacturer_data = advertisement_data.manufacturer_data
+        manufacturer_data = advertisement_data.manufacturer_data
+        if MANUFACTURER_ID not in manufacturer_data:
+            return
 
-    if MANUFACTURER_ID not in manufacturer_data:
-        return
+        donnees = decoder_payload(manufacturer_data[MANUFACTURER_ID])
+        if donnees is None:
+            return
 
-    raw_bytes = manufacturer_data[MANUFACTURER_ID]
-    donnees   = decoder_payload(raw_bytes)
+        enregistrer_batterie(conn, donnees["chip_id"], donnees["num_batterie"], donnees["timestamp"])
+        enregistrer_mesure(conn, donnees)
+        nb = compter_mesures(conn, donnees["chip_id"], donnees["num_batterie"])
+        afficher_donnees(donnees, nb)
 
-    if donnees is None:
-        return
+    return detection_callback
 
-    enregistrer_mesure(donnees)
-    afficher_donnees(donnees)
-    sauvegarder_json()  # sauvegarde à chaque mesure reçue
-
-# ─── Main ─────────────────────────────────────────────────────────────────────
+# ─── Main ────────────────────────────────────────────────────────────────────
 async def main():
-    charger_json()  # recharge les données existantes au démarrage
+    conn = sqlite3.connect(FICHIER_DB, check_same_thread=False)
+    init_db(conn)
+    print(f"Base de données : {FICHIER_DB}")
     print("Démarrage du scan BLE... (Ctrl+C pour arrêter)")
 
-    scanner = BleakScanner(detection_callback)
+    scanner = BleakScanner(make_callback(conn))
     await scanner.start()
 
     try:
@@ -166,8 +171,8 @@ async def main():
         print("\nArrêt demandé.")
     finally:
         await scanner.stop()
-        sauvegarder_json()
-        print(f"Données sauvegardées dans {FICHIER_JSON}")
+        conn.close()
+        print("Connexion base de données fermée.")
 
 if __name__ == "__main__":
     asyncio.run(main())
