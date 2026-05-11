@@ -52,7 +52,7 @@ void loop() {
     data.temperature_C = 124.12;
     data.temperaturebatterie_C = resistance; // On suppose que la résistance est proportionnelle
 
-    envoierDonnees(data, pAdvertising, 1); // On envoie les données via Bluetooth
+    envoierDonnees(data, pAdvertising, 2); // On envoie les données via Bluetooth
     Serial.print("Rx = ");
     Serial.print(resistance);
     Serial.println(" Ω");

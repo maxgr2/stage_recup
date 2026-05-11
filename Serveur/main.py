@@ -4,13 +4,13 @@ import sqlite3
 from datetime import datetime
 from bleak import BleakScanner
 
-# ─── Configuration ───────────────────────────────────────────────────────────
+# ------ Configuration ----------------------------------------------------------------------------------------------------------------------
 MANUFACTURER_ID = 65535
 ESP32_NOM       = "Esp_batterie"
 TAILLE_STRUCT   = 4 + 1 + (6 * 2)  # 17 octets
 FICHIER_DB      = "batteries.db"
 
-# ─── Base de données ─────────────────────────────────────────────────────────
+# ------ Base de données ------------------------------------------------------------------------------------------------------------------
 def init_db(conn: sqlite3.Connection):
     """Crée les tables si elles n'existent pas encore."""
     conn.executescript("""
@@ -52,7 +52,8 @@ def enregistrer_batterie(conn: sqlite3.Connection, chip_id: str, num_batterie: i
     conn.commit()
 
 def enregistrer_mesure(conn: sqlite3.Connection, donnees: dict):
-    """Insère une nouvelle mesure et garde seulement les 500 dernières."""
+    """Insère une mesure et protège les 50 premières + les 450 dernières."""
+
     conn.execute("""
         INSERT INTO mesures
             (chip_id, num_batterie, timestamp,
@@ -70,6 +71,32 @@ def enregistrer_mesure(conn: sqlite3.Connection, donnees: dict):
         donnees["temperature_C"],
         donnees["temperaturebatterie_C"],
     ))
+
+    # Nettoyage intelligent :
+    # On supprime tout ce qui n'est NI dans les 50 premiers IDs, NI dans les 450 derniers.
+    conn.execute("""
+        DELETE FROM mesures
+        WHERE chip_id = ? AND num_batterie = ?
+        AND id NOT IN (
+            SELECT id FROM (
+                SELECT id FROM mesures 
+                WHERE chip_id = ? AND num_batterie = ? 
+                ORDER BY id ASC LIMIT 50
+            )
+            UNION
+            SELECT id FROM (
+                SELECT id FROM mesures 
+                WHERE chip_id = ? AND num_batterie = ? 
+                ORDER BY id DESC LIMIT 450
+            )
+        )
+    """, (
+        donnees["chip_id"], donnees["num_batterie"], # Pour le DELETE
+        donnees["chip_id"], donnees["num_batterie"], # Pour le bloc des 50 premiers
+        donnees["chip_id"], donnees["num_batterie"]  # Pour le bloc des 450 derniers
+    ))
+
+    conn.commit()
 
     # Supprimer les mesures au-delà des 500 dernières pour cette batterie
     conn.execute("""
@@ -96,8 +123,9 @@ def compter_mesures(conn: sqlite3.Connection, chip_id: str, num_batterie: int) -
     """, (chip_id, num_batterie))
     return cur.fetchone()[0]
 
-# ─── Décodage BLE ────────────────────────────────────────────────────────────
+# ---- Décodage BLE ------------------------------------------------------------------------------------------------------------------------
 def decoder_payload(raw_bytes: bytes) -> dict | None:
+    """Décode les paquets recut et les remet sous la bonne unité car transmis en entier,  *10 ou *100"""
     if len(raw_bytes) != TAILLE_STRUCT:
         print(f"Taille inattendue : {len(raw_bytes)} octets (attendu {TAILLE_STRUCT})")
         return None
@@ -118,23 +146,25 @@ def decoder_payload(raw_bytes: bytes) -> dict | None:
         "timestamp":             datetime.now().isoformat(),
     }
 
-# ─── Affichage ───────────────────────────────────────────────────────────────
+# ------ Affichage ------------------------------------------------------------------------------------------------------------------------------
 def afficher_donnees(donnees: dict, nb_mesures: int):
+    """affichage simple dans un terminale peut être supprimer pour la version finale"""
     clé = f"{donnees['chip_id']}_{donnees['num_batterie']}"
-    print(f"\n{'─' * 45}")
+    print(f"\n{'--' * 45}")
     print(f"  Batterie     → {clé}  ({nb_mesures}/500 mesures)")
     print(f"  Horodatage   → {donnees['timestamp']}")
-    print(f"{'─' * 45}")
+    print(f"{'--' * 45}")
     print(f"  Tension bus    : {donnees['tensionBus_V']:.2f} V")
     print(f"  Courant        : {donnees['courant_A']:.3f} A")
     print(f"  Puissance      : {donnees['puissance_W']:.1f} W")
     print(f"  Tension shunt  : {donnees['tensionShunt_mV']:.2f} mV")
     print(f"  Température    : {donnees['temperature_C']:.1f} °C")
     print(f"  Temp. batterie : {donnees['temperaturebatterie_C']:.1f} °C")
-    print(f"{'─' * 45}")
+    print(f"{'--' * 45}")
 
-# ─── Callback BLE ────────────────────────────────────────────────────────────
+# ------ Callback BLE ------------------------------------------------------------------------------------------------------------------------
 def make_callback(conn: sqlite3.Connection):
+    """fonction de callback, c'est une fonction de fonction pour pouvoir prendre plus de 2 arguments"""
     def detection_callback(device, advertisement_data):
         if device.name != ESP32_NOM:
             return
@@ -154,7 +184,7 @@ def make_callback(conn: sqlite3.Connection):
 
     return detection_callback
 
-# ─── Main ────────────────────────────────────────────────────────────────────
+# ------ Main ----------------------------------------------------------------------------------------------------------------------------------------
 async def main():
     conn = sqlite3.connect(FICHIER_DB, check_same_thread=False)
     init_db(conn)
