@@ -5,7 +5,13 @@
 #include <BLEDevice.h>
 #include <BLEUtils.h>
 #include "bluetooth.h"
+#include "esp_sleep.h"
 
+
+#define LED_PIN_1 4
+#define LED_PIN2 15
+#define SLEEP_TIME 15
+int led_state=HIGH;
 
 //variable globale
 BLEAdvertising *pAdvertising;
@@ -13,12 +19,42 @@ BLEAdvertising *pAdvertising;
 //Fonctions envoie bluetooth
 
 
+void faittous(int bat){
+    alimentation_on(bat);
+
+    
+    
+    DonneesCapteur data=mesures(bat); // Mesure pour la batterie 1
+    int temp_moy=0;
+    for (int i=0; i<10;i++){
+        temp_moy += temperature(bat);
+    }
+    float resistance = temp_moy / 10.0;
+    resistance = temp_moy / 10.0;
+    data = inaLire_1_Batterie(); // On lit les données du capteur INA237 pour une batterie
+    data.temperaturebatterie_C = resistance; // On suppose que la résistance est proportionnelle
+    Serial.printf("Diffusion | ChipID: %08X | Batterie: %d | %.2fV | %.2fA | %.2fW | %.2fmV | %.1f°C | %.1f°C\n",
+        data.tensionBus_V,
+        data.courant_A,
+        data.puissance_W,
+        data.tensionShunt_mV,
+        data.temperature_C,
+        data.temperaturebatterie_C
+    );
+    envoierDonnees(data, pAdvertising, bat); // On envoie les données via Bluetooth
+
+
+    
+}
+
 void setup() {
     BLEDevice::init("Esp_batterie");
     delay(1000);
     //config I2C
     Wire.begin(); //I2C init
     Serial.begin(115200);
+    pinMode(LED_PIN2, OUTPUT);
+    digitalWrite(LED_PIN2, HIGH);
     
     
 
@@ -32,30 +68,40 @@ void setup() {
     
     pAdvertising = BLEDevice::getAdvertising();
     Serial.println("Bluetooth prêt, en attente de diffusion...");
-}
 
-void loop() {
-    int temp_moy=0;
-    for (int i=0; i<10;i++){
-        temp_moy += temperature(1);
-        
+
+
+    for (int i=1;i<5;i++){
+        faittous(i);
     }
-    float resistance = temp_moy / 10.0;
+    digitalWrite(LED_PIN2, LOW);
 
-    DonneesCapteur data;
-
-    //data = inaLire_1_Batterie(); // On lit les données du capteur INA237 pour une batterie 
-    data.tensionBus_V = 12.12;
-    data.courant_A = 12.5;
-    data.puissance_W = 12.0;
-    data.tensionShunt_mV =123.12; 
-    data.temperature_C = 124.12;
-    data.temperaturebatterie_C = resistance; // On suppose que la résistance est proportionnelle
-
-    envoierDonnees(data, pAdvertising, 2); // On envoie les données via Bluetooth
-    Serial.print("Rx = ");
-    Serial.print(resistance);
-    Serial.println(" Ω");
-    delay(2000);
+    // ── Deep sleep
+    Serial.print("Deep sleep");
+    Serial.flush();  // vider le buffer série avant de dormir
+    digitalWrite(LED_PIN2,LOW);
+ 
+    esp_sleep_enable_timer_wakeup((uint64_t)SLEEP_TIME * 1000000ULL);
+    esp_deep_sleep_start();
 
 }
+
+void loop(){}
+/*
+int i=1;
+void loop() {
+    faittous(i);
+    digitalWrite(LED_PIN2, led_state);
+    if (led_state==HIGH){
+        led_state=LOW;
+    }
+    else {
+        led_state=HIGH;
+    }
+    i++;
+    if (i==5){
+        i=1;
+    }
+
+    delay(1000);
+}*/

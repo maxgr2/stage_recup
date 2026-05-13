@@ -107,7 +107,7 @@ void alimentation_on(int bat) {
   }
 }
 
-void mesures(int bat){
+DonneesCapteur mesures(int bat){
   ssrOff(6);
   ssrOff(5);
   ssrOff(3);
@@ -126,6 +126,7 @@ void mesures(int bat){
   }
 
   DonneesCapteur m = inaLire_1_Batterie();
+  return m;
 }
 
 void inaWrite16(uint8_t reg, uint16_t val) {
