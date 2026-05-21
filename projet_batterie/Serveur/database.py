@@ -1,6 +1,6 @@
 import sqlite3
 import pandas as pd
-from config import FICHIER_DB, SEUILS
+from projet_batterie.Serveur.config import FICHIER_DB, SEUILS
 
 
 def connecter() -> sqlite3.Connection:

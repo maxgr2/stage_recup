@@ -1,4 +1,4 @@
-23056196778156286
+23061534634642527
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -55698,6 +55698,13 @@ MIC5283-3.3YME
 0
 9
 9
+ESP32_Footprints
+SOT95P280X145-5N
+
+
+0
+5
+5
 Ferrite_THT
 LairdTech_28C0236-0JW-10
 Ferrite, vertical, LairdTech 28C0236-0JW-10, https://assets.lairdtech.com/home/brandworld/files/28C0236-0JW-10.pdf, JW Miller core https://www.bourns.com/products/magnetic-products/j.w.-miller-through-hole-ferrite-beads-emi-filters
@@ -88766,6 +88773,20 @@ Logo WEEE
 0
 0
 0
+TPS7...
+SON50P250X250X80-9N-D
+DEF0008A-C01
+Integrated Circuit
+0
+9
+9
+TPS7A2050PDBVR (1)
+SOT95P280X145-5N
+
+
+0
+5
+5
 TerminalBlock
 TerminalBlock_Altech_AK300-2_P5.00mm
 Altech AK300 terminal block, pitch 5.0mm, 45 degree angled, see http://www.mouser.com/ds/2/16/PCBMETRC-24178.pdf

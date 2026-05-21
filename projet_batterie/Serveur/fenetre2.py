@@ -3,8 +3,8 @@ from tkinter import ttk
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from datetime import datetime
-from config   import *
-from database import (connecter, lister_batteries, derniere_mesure,charger_mesures, moyenne_dernieres_mesures, moyenne_premieres_mesures, statistiques, verifier_alertes)
+from projet_batterie.Serveur.config   import *
+from projet_batterie.Serveur.database import (connecter, lister_batteries, derniere_mesure,charger_mesures, moyenne_dernieres_mesures, moyenne_premieres_mesures, statistiques, verifier_alertes)
 
 
 class AppBatteries(tk.Tk):
