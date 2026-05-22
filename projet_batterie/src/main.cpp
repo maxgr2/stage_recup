@@ -68,9 +68,11 @@ void setup() {
     
     pAdvertising = BLEDevice::getAdvertising();
     Serial.println("Bluetooth prêt, en attente de diffusion...");
+    ssrAllOff(); // On s'assure que toutes les alimentations sont éteintes avant de commencer les mesures
 
+    alimentation_on(1); // On allume l'alimentation de la batterie 1 pour faire les mesures
 
-
+    /*
     for (int i=1;i<5;i++){
         faittous(i);
     }
@@ -83,6 +85,7 @@ void setup() {
  
     esp_sleep_enable_timer_wakeup((uint64_t)SLEEP_TIME * 1000000ULL);
     esp_deep_sleep_start();
+    */
 
 }
 
