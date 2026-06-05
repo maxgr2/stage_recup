@@ -21,24 +21,27 @@ const float T25_K  = 298.15;    // 25°C en Kelvi
 float temperature(int cap) {
     float Vout;
     switch (cap) {
-        case 1: Vout = lireVoltage(34); break;
+        case 1: Vout = lireVoltage(12); break;
         case 2: Vout = lireVoltage(35); break;
-        case 3: Vout = lireVoltage(32); break; 
-        case 4: Vout = lireVoltage(25); break; 
+        case 3: Vout = lireVoltage(32); break;
+        case 4: Vout = lireVoltage(25); break;
+        default: return -1.0;
     }
-       
-    float Vref = lireVoltage(26);
-    float denominateur = Vref - Vout;
-    if (abs(denominateur) < 0.001) {
-    return -1.0;  // Erreur : Vout ≈ VCC (court-circuit)
-    }
-    float Rx = R_FIXE * Vout / denominateur;
 
-    /*Serial.print("Vout: ");    Serial.println(Vout, 4);
-    Serial.print("Vref: ");    Serial.println(Vref, 4);
-    Serial.print("Rx: ");      Serial.println(Rx, 1);*/
-    float tempK = 1.0 / ( (1.0 / T25_K) + (1.0 / BETA) * log(Rx / R25) );
-    return abs(tempK - 273.15);
-    //float temperature = 1/(C1+C2*log(Rx)+C3*pow(log(Rx),3))-273.15; // 20000.0 est la résistance à 25°C, 3950.0 est le coefficient de température du thermistor
-    //return temperature;
+    float Vref = lireVoltage(26);
+
+    // Thermistance en BAS du diviseur (ajuste si inversé)
+    float Rx = R_FIXE * Vout / (Vref - Vout);
+
+    float tempK = 1.0f / ((1.0f / T25_K) + (1.0f / BETA) * log(Rx / R25));
+    float tempC = tempK - 273.15f;
+
+    // Sanity check résultat
+    if (tempC < -40.0f || tempC > 125.0f) {
+        Serial.print("Température hors plage: ");
+        Serial.println(tempC);
+        return -1.0f;
+    }
+
+    return tempC;
 }

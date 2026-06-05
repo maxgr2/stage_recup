@@ -4,6 +4,7 @@
 
 struct DonneesCapteur {
   float tensionBus_V;
+  float tensionBus_charge_V; // Tension mesurée pendant la charge
   float courant_A;
   float puissance_W;
   float tensionShunt_mV;
@@ -13,6 +14,7 @@ struct DonneesCapteur {
 
 
 // MCP23017 I/O Expander functions
+void mcpInit();
 void mcpWrite(uint8_t reg, uint8_t val);
 uint8_t mcpRead(uint8_t reg);
 

@@ -20,7 +20,7 @@ BLEAdvertising *pAdvertising;
 
 
 void faittous(int bat){
-    alimentation_on(bat);
+    //alimentation_on(bat);
 
     
     
@@ -31,7 +31,6 @@ void faittous(int bat){
     }
     float resistance = temp_moy / 10.0;
     resistance = temp_moy / 10.0;
-    data = inaLire_1_Batterie(); // On lit les données du capteur INA237 pour une batterie
     data.temperaturebatterie_C = resistance; // On suppose que la résistance est proportionnelle
     Serial.printf("Diffusion | ChipID: %08X | Batterie: %d | %.2fV | %.2fA | %.2fW | %.2fmV | %.1f°C | %.1f°C\n",
         data.tensionBus_V,
@@ -48,6 +47,7 @@ void faittous(int bat){
 }
 
 void setup() {
+    delay(1000); // Attente que le système soit stable après le démarrage
     BLEDevice::init("Esp_batterie");
     delay(1000);
     //config I2C
@@ -55,6 +55,8 @@ void setup() {
     Serial.begin(115200);
     pinMode(LED_PIN2, OUTPUT);
     digitalWrite(LED_PIN2, HIGH);
+    mcpInit(); // Initialisation du MCP23017
+    pinMode(LED_PIN_1, OUTPUT);
     
     
 
@@ -70,7 +72,7 @@ void setup() {
     Serial.println("Bluetooth prêt, en attente de diffusion...");
     ssrAllOff(); // On s'assure que toutes les alimentations sont éteintes avant de commencer les mesures
 
-    alimentation_on(1); // On allume l'alimentation de la batterie 1 pour faire les mesures
+    //alimentation_on(1); // On allume l'alimentation de la batterie 1 pour faire les mesures
 
     /*
     for (int i=1;i<5;i++){
@@ -88,23 +90,25 @@ void setup() {
     */
 
 }
-
-void loop(){}
-/*
 int i=1;
-void loop() {
-    faittous(i);
+
+
+void loop(){
+
     digitalWrite(LED_PIN2, led_state);
+    faittous(i);
+    ssrAllOff(); // On éteint toutes les alimentations après les mesures
+    if (i==4){
+        i=1;
+
+    }
+    else{
+        i++;
+    }
     if (led_state==HIGH){
         led_state=LOW;
     }
-    else {
+    else{
         led_state=HIGH;
     }
-    i++;
-    if (i==5){
-        i=1;
-    }
-
-    delay(1000);
-}*/
+}

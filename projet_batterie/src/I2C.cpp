@@ -11,13 +11,33 @@ Et le module INA237
 #define MCP_ADDR 0x20
 
 #define INA237_ADDR 0b1000100
+// Registres INA237
+#define INA237_REG_CONFIG   0x00
+#define INA237_REG_SHUNT    0x04  // Tension shunt
+#define INA237_REG_VBUS     0x05  // Tension bus
+#define INA237_REG_TEMP     0x06
+#define INA237_REG_CURRENT  0x07  // Courant (après calibration)
+#define INA237_REG_POWER    0x08
+#define INA237_REG_SHUNT_CAL 0x02 // Registre de calibration
+
+// LSB sizes INA237
+#define VBUS_LSB     0.003125f   // 3.125 mV/bit
+#define VSHUNT_LSB   0.000005f   // 5 µV/bit (gain x1, ADCRANGE=0)
+#define TEMP_LSB     0.125f      // 0.125 °C/bit
 
 // Registres
 #define OLATA 0x14
 #define OLATB 0x15
 
 
-
+void mcpInit() {
+  // Mettre tous les pins en SORTIE (0 = output)
+  mcpWrite(0x00, 0x00);
+  mcpWrite(0x01, 0x00);
+  // Éteindre tous les SSR au démarrage
+  mcpWrite(OLATA, 0x00);
+  mcpWrite(OLATB, 0x00);
+}
 void mcpWrite(uint8_t reg, uint8_t val) {
   Wire.beginTransmission(MCP_ADDR);
   Wire.write(reg);
@@ -90,23 +110,6 @@ void alimentation_off(int bat) {
     Serial.println("Batterie inconnue, impossible de couper l'alimentation");
   }
 }
-
-
-void alimentation_on(int bat) {
-  if (bat == 1) {
-    ssrOn(7); // SSR1 pour batterie 1
-  } else if (bat == 2) {
-    ssrOn(4); // SSR9 pour batterie 2
-  } else if (bat == 3) {
-    ssrOn(2); // SSR9 pour batterie 2
-  }else if (bat == 4) {
-    ssrOn(0); // SSR9 pour batterie 2
-  }
-  else {
-    Serial.println("Batterie inconnue, impossible d'allumer l'alimentation");
-  }
-}
-
 DonneesCapteur mesures(int bat){
   ssrOff(6);
   ssrOff(5);
@@ -124,9 +127,25 @@ DonneesCapteur mesures(int bat){
    if (bat==4){
     ssrOn(1);
   }
+  delay(1000);
 
   DonneesCapteur m = inaLire_1_Batterie();
   return m;
+}
+
+void alimentation_on(int bat) {
+  if (bat == 1) {
+    ssrOn(7); // SSR1 pour batterie 1
+  } else if (bat == 2) {
+    ssrOn(4); // SSR9 pour batterie 2
+  } else if (bat == 3) {
+    ssrOn(2); // SSR9 pour batterie 2
+  }else if (bat == 4) {
+    ssrOn(0); // SSR9 pour batterie 2
+  }
+  else {
+    Serial.println("Batterie inconnue, impossible d'allumer l'alimentation");
+  }
 }
 
 void inaWrite16(uint8_t reg, uint16_t val) {
@@ -147,38 +166,48 @@ int16_t inaRead16(uint8_t reg) {
   return (int16_t)((msb << 8) | lsb);
 }
 
+void inaInit() {
+  // Calibration : SHUNT_CAL = 819.2 * 10^6 * current_lsb * R_shunt
+  // Avec current_lsb = 0.150/32768 et R_shunt = ta valeur en ohms (ex: 0.01Ω)
+  float current_lsb = 0.150f / 32768.0f;
+  float r_shunt = 0.01f; // À adapter selon ton shunt
+  uint16_t shunt_cal = (uint16_t)(819.2e6f * current_lsb * r_shunt);
+  inaWrite16(INA237_REG_SHUNT_CAL, shunt_cal);
+}
+
 float inaLireTensionBus() {
-  int16_t raw = inaRead16(0x05);
-  return raw ; 
+  int16_t raw = inaRead16(INA237_REG_VBUS);
+  return raw * VBUS_LSB; // Résultat en Volts
 }
 
 float inaLireTensionShunt() {
-  int16_t raw = inaRead16(0x04);
-  return raw ;
+  int16_t raw = inaRead16(INA237_REG_SHUNT);
+  return raw * VSHUNT_LSB * 1000.0f; // Résultat en mV
 }
 
 float inaLireCourant() {
-  float current_lsb = 0.150 / 32768.0; // 0.150 A (maximum du courant) / 2^15 (résolution du convertisseur)
-  int16_t raw = inaRead16(0x04);
-  return raw * current_lsb;
+  // Le registre CURRENT (0x07) est plus fiable que recalculer depuis SHUNT
+  float current_lsb = 0.150f / 32768.0f;
+  int16_t raw = inaRead16(INA237_REG_CURRENT);
+  return raw * current_lsb; // Résultat en Ampères
 }
 
 float inaLireTemperature() {
-  int16_t raw = inaRead16(0x06);
-  raw >>= 4;  // Les 4 bits LSB sont inutilisés
-  return raw * 0.125;
+  int16_t raw = inaRead16(INA237_REG_TEMP);
+  raw >>= 4; // 4 bits LSB inutilisés
+  return raw * TEMP_LSB; // Résultat en °C
 }
-
-
 DonneesCapteur inaLire_1_Batterie() {
   
   DonneesCapteur m;
   m.tensionBus_V    = inaLireTensionBus();
   ssrOn(8);
+  delay(1000);
   m.courant_A       = inaLireCourant();
   m.tensionShunt_mV = inaLireTensionShunt();
   m.temperature_C   = inaLireTemperature();
+  m.tensionBus_charge_V = inaLireTensionBus();
+  m.puissance_W     = m.tensionBus_V * m.courant_A;
   m.temperaturebatterie_C = 0; // Cette valeur devra être remplie par le capteur de température
   return m;
 }
-

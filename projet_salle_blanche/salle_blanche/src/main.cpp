@@ -12,13 +12,10 @@
  *   Pin 4 (SEL)  → GND     (sélectionne le mode I²C)
  *   Pin 5 (GND)  → GND
  *
- * CÂBLAGE DHT22
- *   DATA → GPIO4  (+ pull-up 10kΩ vers 3.3V)
- *
  * CONFIGURATION
- *   1. Relever l'adresse MAC du maître via son Serial Monitor
- *   2. Coller l'adresse dans MASTER_MAC ci-dessous
- *   3. Ajuster ROOM_ID et SLAVE_ID
+ *   Relever l'adresse MAC du maître via son Serial Monitor
+ *   Coller l'adresse dans MASTER_MAC ci-dessous
+ *   Ajuster ROOM_ID et SLAVE_ID
  * ---------------------------------------------------------
  */
 
@@ -26,7 +23,8 @@
 #include <esp_now.h>
 #include <WiFi.h>
 #include <Wire.h>
-#include "../lib/Sensirion_lib/SensirionI2cSps30.h"
+#include "I2S.h"
+
 // -- Configuration -----------------------------------------
 #define ROOM_ID           1
 #define SLAVE_ID          1
@@ -34,10 +32,7 @@
 #define DHT_TYPE          DHT22
 #define SEND_INTERVAL_MS  5000
 
-// SPS30 : durée de chauffe avant première mesure valide
-#define SPS30_WARMUP_MS   8000
-
-// Adresse MAC du maître — à remplir !
+// Adresse MAC du maître — à remplir une fois rasp recut
 uint8_t MASTER_MAC[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 
 // -- Structure de données (identique dans le maître) --------
@@ -105,9 +100,6 @@ void setup() {
 
     payload.room_id  = ROOM_ID;
     payload.slave_id = SLAVE_ID;
-
-    // Attendre la chauffe du SPS30 avant le premier envoi
-    if (sps30Ready) delay(SPS30_WARMUP_MS);
 }
 
 
