@@ -42,6 +42,7 @@ void envoierDonnees(DonneesCapteur data, BLEAdvertising *pAdvertising, int NUMER
     appendInt16(data.tensionShunt_mV,       100.0);  // précision 0.01 mV
     appendInt16(data.temperature_C,         10.0);   // précision 0.1 °C
     appendInt16(data.temperaturebatterie_C, 10.0);   // précision 0.1 °C
+    appendInt16(data.tensionBus_charge_V, 100.0);  // précision 0.01 V
 
     // Total : 2 + 4 + 1 + 12 = 19 octets  ✓ largement sous la limite
     oAdvertisementData.setManufacturerData(myData);

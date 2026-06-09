@@ -7,7 +7,7 @@ from bleak import BleakScanner
 # ------ Configuration ----------------------------------------------------------------------------------------------------------------------
 MANUFACTURER_ID = 65535
 ESP32_NOM       = "Esp_batterie"
-TAILLE_STRUCT   = 4 + 1 + (6 * 2)  # 17 octets
+TAILLE_STRUCT   = 4 + 1 + (7 * 2)  # 17 octets
 FICHIER_DB      = "batteries.db"
 
 # ------ Base de données ------------------------------------------------------------------------------------------------------------------
@@ -32,7 +32,9 @@ def init_db(conn: sqlite3.Connection):
             puissance_W            REAL,
             tensionShunt_mV        REAL,
             temperature_C          REAL,
-            temperaturebatterie_C  REAL
+            temperaturebatterie_C  REAL,
+            tensionBus_charge_V    REAL,
+            impedance_ohms           REAL
         );
 
         -- Index pour accélérer les requêtes par batterie et par date
@@ -58,8 +60,8 @@ def enregistrer_mesure(conn: sqlite3.Connection, donnees: dict):
         INSERT INTO mesures
             (chip_id, num_batterie, timestamp,
              tensionBus_V, courant_A, puissance_W,
-             tensionShunt_mV, temperature_C, temperaturebatterie_C)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+             tensionShunt_mV, temperature_C, temperaturebatterie_C, tensionBus_charge_V, impedance_ohms)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)
     """, (
         donnees["chip_id"],
         donnees["num_batterie"],
@@ -70,6 +72,8 @@ def enregistrer_mesure(conn: sqlite3.Connection, donnees: dict):
         donnees["tensionShunt_mV"],
         donnees["temperature_C"],
         donnees["temperaturebatterie_C"],
+        donnees["tensionBus_charge_V"],
+        donnees["impedance_ohms"]
     ))
 
     # Nettoyage intelligent :
@@ -132,7 +136,8 @@ def decoder_payload(raw_bytes: bytes) -> dict | None:
 
     chip_id      = struct.unpack_from("<I", raw_bytes, 0)[0]
     num_batterie = raw_bytes[4]
-    bruts        = struct.unpack_from("<6h", raw_bytes, 5)
+    bruts        = struct.unpack_from("<7h", raw_bytes, 5)
+
 
     return {
         "chip_id":               f"{chip_id:08X}",
@@ -143,6 +148,8 @@ def decoder_payload(raw_bytes: bytes) -> dict | None:
         "tensionShunt_mV":       bruts[3] / 100.0,
         "temperature_C":         bruts[4] / 10.0,
         "temperaturebatterie_C": bruts[5] / 10.0,
+        "tensionBus_charge_V":   bruts[6] / 100.0,
+        "impedance_ohms":          ((bruts[0]/100.0)-(bruts[6]/100.0))/(bruts[1]/1000.0) if bruts[1] != 0 else None,  # Calcul de l'impédance
         "timestamp":             datetime.now().isoformat(),
     }
 
@@ -160,6 +167,9 @@ def afficher_donnees(donnees: dict, nb_mesures: int):
     print(f"  Tension shunt  : {donnees['tensionShunt_mV']:.2f} mV")
     print(f"  Température    : {donnees['temperature_C']:.1f} °C")
     print(f"  Temp. batterie : {donnees['temperaturebatterie_C']:.1f} °C")
+    print(f"  Tension charge : {donnees['tensionBus_charge_V']:.2f} V")
+    if donnees["impedance_ohms"] is not None:
+        print(f"  Impédance      : {donnees['impedance_ohms']:.2f} ohms")
     print(f"{'--' * 45}")
 
 # ------ Callback BLE ------------------------------------------------------------------------------------------------------------------------

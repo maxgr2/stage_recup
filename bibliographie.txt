@@ -7,3 +7,6 @@ https://advanced.onlinelibrary.wiley.com/doi/10.1002/adsr.202400165
 https://www.sciencedirect.com/science/article/pii/S1359431125005824
 https://spj.science.org/doi/10.34133/energymatadv.0008
 https://pmc.ncbi.nlm.nih.gov/articles/PMC12152129/
+
+https://www.mon-club-elec.fr/raspberry-pi-serveur-web/
+

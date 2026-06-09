@@ -78,8 +78,8 @@ class AppBatteries(tk.Tk):
         droite.pack(side="left", fill="both", expand=True)
 
         # Courbes
-        self.fig, self.axes = plt.subplots(3, 1, figsize=(7, 5), facecolor=COULEUR_FOND)
-        self.fig.subplots_adjust(hspace=0.45, top=0.95, bottom=0.08)
+        self.fig, self.axes = plt.subplots(4, 1, figsize=(7, 5), facecolor=COULEUR_FOND)
+        self.fig.subplots_adjust(hspace=0.55, top=0.95, bottom=0.06)
         for ax in self.axes:
             ax.set_facecolor(COULEUR_PANEL)
             ax.tick_params(colors=COULEUR_TEXTE, labelsize=7)
@@ -98,6 +98,7 @@ class AppBatteries(tk.Tk):
             ("Courant (A)",   "i"),
             ("Puissance (W)", "p"),
             ("Temp. (°C)",    "t"),
+            ("Impédance (ohms)", "z")
         ]
         for i, (nom, cle) in enumerate(champs):
             tk.Label(stats_frame, text=nom, bg=COULEUR_PANEL,fg=COULEUR_TITRE, font=("Helvetica", 8, "bold"),width=12).grid(row=0, column=i * 4, padx=(8, 0), pady=4)
@@ -185,12 +186,14 @@ class AppBatteries(tk.Tk):
         df = charger_mesures(self.conn, chip_id, num)
         moyennes = moyenne_premieres_mesures(self.conn, chip_id, num, limite=50)
         if df.empty:
+            print(repr(df.columns.tolist()))
             return
 
         configs = [
             ("tensionBus_V",          "Tension (V)",  "#89b4fa"),
             ("courant_A",             "Courant (A)",  "#a6e3a1"),
             ("temperaturebatterie_C", "Temp. (°C)",   "#f38ba8"),
+            ("impedance_ohms",          "Impédance (ohms)", "#f9e2af"),
         ]
         for ax, (col, label, couleur) in zip(self.axes, configs):
             ax.clear()
@@ -203,7 +206,7 @@ class AppBatteries(tk.Tk):
                 moy = moyennes[col]
                 ax.axhline(y=moy, color="#bac2de", linestyle="--", linewidth=1.5, alpha=0.7)
                 # Petit texte pour afficher la valeur de la moyenne
-                ax.text(df["timestamp"].iloc[0], moy, "valeur_moy_première_mesure", color="#bac2de", fontsize=7, va='bottom')
+                ax.text(df["timestamp"].iloc[0], moy, "valeur_moy_debut", color="#bac2de", fontsize=7, va='bottom')
             for spine in ax.spines.values():
                 spine.set_edgecolor("#45475a")
 
@@ -229,7 +232,9 @@ class AppBatteries(tk.Tk):
             ("Puissance (W)",  "puissance_W"),
             ("Shunt (mV)",     "tensionShunt_mV"),
             ("Temp. Amb (°C)", "temperature_C"),
-            ("Temp. Bat (°C)", "temperaturebatterie_C")
+            ("Temp. Bat (°C)", "temperaturebatterie_C"),
+            ("Tension Charge (V)", "tensionBus_charge_V"),
+            ("Impédance (ohms)",  "impedance_ohms")
         ]
         
         for nom, cle in mapping:
@@ -256,7 +261,7 @@ class AppBatteries(tk.Tk):
             lbl = self.stats_labels.get(k)
             if lbl and val is not None:
                 lbl.config(text=f"{val:.2f}")
-
+    
 
 # ------ Lancement --------------------------------------------------------------------------------------------------------------------------------
 if __name__ == "__main__":
