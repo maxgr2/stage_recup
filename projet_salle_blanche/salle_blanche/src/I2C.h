@@ -1,24 +1,35 @@
 #include <Wire.h>
+// ---------------------------------------------------------
+/**
+ * @file I2C.h
+ * @brief Interface de communication I2C pour les capteurs SHT40 et SPS30
+ * @details
+ * Ce fichier définit les classes et fonctions nécessaires pour communiquer avec les capteurs de température, d'humidité et de particules via le bus I2C. Il inclut des méthodes pour démarrer les mesures, lire les données, et gérer les erreurs de communication.
+ * Ce code est conçu pour être utilisé dans un projet ESP32 qui collecte des données environnementales et les envoie via ESP-NOW. Un écran I2C est aussi utilisé
+ * Ju'tiliserai la librairie officielle pour manipuller l'écran et donc les fonction I2C de l'écran ne sont pas dans ce fichier
+ *  @author Gros Maxime
+ * @date 2026-06
+ * @version 1.0
+ * @license MIT
+ */
 
+
+//Capteur de temp et humidité modèle SHT40 de chez sensrion
 #define SPS30_I2C_ADDR_69 0x69
+#define SHT40_CMD_MEASURE_HIGH_PRECISION    0xFD  // 10ms, 0.15°C / 0.20% RH
+#define SHT40_I2C_ADDR 0x40
 
-typedef enum {
-    SPS30_START_MEASUREMENT_CMD_ID = 0x0010,
-    SPS30_STOP_MEASUREMENT_CMD_ID = 0x0104,
-    SPS30_READ_DATA_READY_FLAG_CMD_ID = 0x0202,
-    SPS30_READ_VALUES_CMD_ID = 0x0300,
-    SPS30_SLEEP_CMD_ID = 0x1001,
-    SPS30_WAKE_UP_CMD_ID = 0x1103,
-    SPS30_START_FAN_CLEANING_CMD_ID = 0x5607,
-    SPS30_READ_AUTO_CLEANING_INTERVAL_CMD_ID = 0x8004,
-    SPS30_WRITE_AUTO_CLEANING_INTERVAL_CMD_ID = 0x8004,
-    SPS30_READ_PRODUCT_TYPE_CMD_ID = 0xd002,
-    SPS30_READ_SERIAL_NUMBER_CMD_ID = 0xd033,
-    SPS30_READ_FIRMWARE_VERSION_CMD_ID = 0xd100,
-    SPS30_READ_DEVICE_STATUS_REGISTER_CMD_ID = 0xd206,
-    SPS30_CLEAR_DEVICE_STATUS_REGISTER_CMD_ID = 0xd210,
-    SPS30_DEVICE_RESET_CMD_ID = 0xd304,
-} SPS30CmdId;
+//Capteur de particule SPS30 de chez sensirion aussi
+#define SPS30_I2C_ADDR_69 0x69
+#define SPS30_WAKE_UP_CMD_ID            0x0006
+#define SPS30_SLEEP_CMD_ID              0x0010
+#define SPS30_START_MEASUREMENT_CMD_ID  0x0010
+#define SPS30_STOP_MEASUREMENT_CMD_ID   0x0104
+#define SPS30_READ_VALUES_CMD_ID        0x0300
+#define SPS30_READ_DATA_READY_FLAG_CMD_ID 0x0202
+#define SPS30_START_FAN_CLEANING_CMD_ID 0x5607
+#define SPS30_AUTO_CLEANING_INTERVAL_CMD_ID 0x8004
+
 typedef struct {
     float mc1p0;
     float mc2p5;
@@ -32,292 +43,113 @@ typedef struct {
     float typicalParticleSize;
 } Capteur_PM_float;
 
+struct SHT40_Data {
+    float temperature;
+    float humidity;
+    bool isValid;
+};
 
-class SensirionI2cSps30 {
+class SHT40 {
   public:
-    SensirionI2cSps30();
-    /**
-     * @brief Initializes the SPS30 class.
-     *
-     * @param i2cBus Arduino stream object to be used for communication.
-     */
-    void begin(TwoWire& i2cBus, uint8_t i2cAddress);
+      SHT40(uint8_t address = SHT40_I2C_ADDR);
 
-    /**
-     * @brief Fully wake up the device
-     *
-     * @return error_code 0 on success, an error code otherwise.
-     */
-    int16_t wakeUpSequence();
+      /**
+       * @brief Lit la température et l'humidité du capteur.Lecture des mesures, hautes précision obligatoire
+       * @return Structure SHT40_Data contenant les valeurs et un indicateur de validité.
+       */
+      SHT40_Data readMeasurement();
 
-    /**
-     * @brief Start measurement
-     *
-     * Starts the measurement. After power up, the module is in Idle-Mode.
-     * Before any measurement values can be read, the Measurement-Mode needs to
-     * be started using this command.
-     *
-     * @param[in] measurementOutputFormat Possible enum values:
-     * output_format_float, output_format_uint16
-     *
-     * @note This command can only be executed in Idle-Mode.
-     *
-     * @return error_code 0 on success, an error code otherwise.
-     *
-     * Example:
-     * --------
-     *
-     * @code{.cpp}
-     *
-     *     int16_t localError = 0;
-     *     localError =
-     * sensor.startMeasurement(SPS30_OUTPUT_FORMAT_OUTPUT_FORMAT_UINT16); if
-     * (localError != NO_ERROR) { return;
-     *     }
-     *
-     * @endcode
-     *
-     */
-    int16_t startMeasurement(SPS30OutputFormat measurementOutputFormat);
+      // Utilitaires
+      //Utiliser que lors du setup aussi
+      void softReset();
+      //Sera utiliser pour juste vérifier lors du setup
+      bool readSerialNumber(char* buffer, size_t bufferSize); 
 
-    /**
-     * @brief Stop measurement
-     *
-     * Use this command to return to the Idle-Mode.
-     *
-     * @return error_code 0 on success, an error code otherwise.
-     */
-    int16_t stopMeasurement();
 
-    /**
-     * @brief Read data ready flag
-     *
-     * This command can be used for polling to find out when new measurements
-     * are available. The pointer address only has to be set once. Repeated read
-     * requests get the status of the Data-Ready Flag.
-     *
-     * @param[out] dataReadyFlag 0x0000: no new measurements available 0x0001:
-     * new measurements ready to read
-     *
-     * @return error_code 0 on success, an error code otherwise.
-     */
-    int16_t readDataReadyFlag(uint16_t& dataReadyFlag);
-
-    /**
-     * @brief Read measurement values
-     *
-     * Reads the measured values from the sensor module and resets the
-     * “Data-Ready Flag”. If the sensor module is in Measurement-Mode, an
-     * updated measurement value is provided every second and the “Data-Ready
-     * Flag” is set. If no synchronized readout is desired, the “Data-Ready
-     * Flag” can be ignored. The command “Read Measured Values” always returns
-     * the latest measured values.
-     *
-     * @param[out] mc1p0 Mass Concentration PM1.0 [µg/m³]
-     * @param[out] mc2p5 Mass Concentration PM2.5 [µg/m³]
-     * @param[out] mc4p0 Mass Concentration PM4.0 [µg/m³]
-     * @param[out] mc10p0 Mass Concentration PM10.0 [µg/m³]
-     * @param[out] nc0p5 Number Concentration PM0.5 [#/cm³]
-     * @param[out] nc1p0 Number Concentration PM1.0 [#/cm³]
-     * @param[out] nc2p5 Number Concentration PM2.5 [#/cm³]
-     * @param[out] nc4p0 Number Concentration PM4.0 [#/cm³]
-     * @param[out] nc10p0 Number Concentration PM10.0 [#/cm³]
-     * @param[out] typicalParticleSize Typical Particle Size [µm]
-     *
-     * @note Use this function when the measurement output format is configured
-     * to: "Big-endian unsigned 16-bit integer values"
-     *
-     * @return error_code 0 on success, an error code otherwise.
-     */
-    int16_t readMeasurementValuesUint16(uint16_t& mc1p0, uint16_t& mc2p5,
-                                        uint16_t& mc4p0, uint16_t& mc10p0,
-                                        uint16_t& nc0p5, uint16_t& nc1p0,
-                                        uint16_t& nc2p5, uint16_t& nc4p0,
-                                        uint16_t& nc10p0,
-                                        uint16_t& typicalParticleSize);
-
-    /**
-     * @brief Read measurement values
-     *
-     * Reads the measured values from the sensor module and resets the
-     * “Data-Ready Flag”. If the sensor module is in Measurement-Mode, an
-     * updated measurement value is provided every second and the “Data-Ready
-     * Flag” is set. If no synchronized readout is desired, the “Data-Ready
-     * Flag” can be ignored. The command “Read Measured Values” always returns
-     * the latest measured values.
-     *
-     * @param[out] mc1p0 Mass Concentration PM1.0 [µg/m³]
-     * @param[out] mc2p5 Mass Concentration PM2.5 [µg/m³]
-     * @param[out] mc4p0 Mass Concentration PM4.0 [µg/m³]
-     * @param[out] mc10p0 Mass Concentration PM10.0 [µg/m³]
-     * @param[out] nc0p5 Number Concentration PM0.5 [#/cm³]
-     * @param[out] nc1p0 Number Concentration PM1.0 [#/cm³]
-     * @param[out] nc2p5 Number Concentration PM2.5 [#/cm³]
-     * @param[out] nc4p0 Number Concentration PM4.0 [#/cm³]
-     * @param[out] nc10p0 Number Concentration PM10.0 [#/cm³]
-     * @param[out] typicalParticleSize Typical Particle Size [µm]
-     *
-     * @note Use this function when the measurement output format is configured
-     * to: "Big-endian IEEE754 float values"
-     *
-     * @return error_code 0 on success, an error code otherwise.
-     */
-    int16_t readMeasurementValuesFloat(float& mc1p0, float& mc2p5, float& mc4p0,
-                                       float& mc10p0, float& nc0p5,
-                                       float& nc1p0, float& nc2p5, float& nc4p0,
-                                       float& nc10p0,
-                                       float& typicalParticleSize);
-
-    /**
-     * @brief Enter Sleep-Mode
-     *
-     * Enters the Sleep-Mode with minimum power consumption. This will also
-     * deactivate the I2C interface.
-     *
-     * @note This command can only be executed in Idle-Mode.
-     *
-     * @return error_code 0 on success, an error code otherwise.
-     */
-    int16_t sleep();
-
-    /**
-     * @brief Switch from Sleep-Mode to Idle-Mode
-     *
-     * In Sleep-Mode the I2C interface is disabled and must first be activated
-     * by sending a low pulse on the SDA line. A low pulse can be generated by
-     * sending a I2C-Start-Condition followed by a Stop-Condition. If then a
-     * Wake-up command follows within 100ms, the module will switch on again and
-     * is ready for further commands in the Idle-Mode. If the low pulse is not
-     * followed by the Wake-up command, the microcontroller returns after 100ms
-     * to Sleep-Mode and the interface is deactivated again.
-     *
-     * Alternatively, if the software implementation does not allow to send a
-     * I2C-Start-Condition followed by a Stop-Condition, the Wake-up command can
-     * be sent twice in succession. In this case the first Wake-up command is
-     * ignored, but causes the interface to be activated.
-     *
-     * @return error_code 0 on success, an error code otherwise.
-     */
-    int16_t wakeUp();
-
-    /**
-     * @brief Starts fan cleaning manually
-     *
-     * @note This command can only be executed in Measurement-Mode.
-     *
-     * @return error_code 0 on success, an error code otherwise.
-     */
-    int16_t startFanCleaning();
-
-    /**
-     * @brief Reads auto cleaning interval of the periodic fan-cleaning
-     *
-     * @param[out] autoCleaningInterval Interval in seconds
-     *
-     * @return error_code 0 on success, an error code otherwise.
-     */
-    int16_t readAutoCleaningInterval(uint32_t& autoCleaningInterval);
-
-    /**
-     * @brief Writes auto cleaning interval of the periodic fan-cleaning
-     *
-     * @param[in] autoCleaningInterval Interval in seconds
-     *
-     * @note For FW Version < 2.2: After writing a new interval, this will be
-     * activated immediately. However, if the interval register is read out
-     * after setting the new value, the previous value is returned until the
-     * next start/reset of the sensor module.
-     *
-     * @return error_code 0 on success, an error code otherwise.
-     *
-     * Example:
-     * --------
-     *
-     * @code{.cpp}
-     *
-     *     int16_t localError = 0;
-     *     localError = sensor.writeAutoCleaningInterval(604800);
-     *     if (localError != NO_ERROR) {
-     *         return;
-     *     }
-     *
-     * @endcode
-     *
-     */
-    int16_t writeAutoCleaningInterval(uint32_t autoCleaningInterval);
-
-    /**
-     * @brief Read product type
-     *
-     * This command returns the product type. It is defined as a string value
-     * with a length of 8 ASCII characters (excluding terminating
-     * null-character)
-     *
-     * @param[out] productType 8-byte ASCII string
-     *
-     * @return error_code 0 on success, an error code otherwise.
-     */
-    int16_t readProductType(int8_t productType[], uint16_t productTypeSize);
-
-    /**
-     * @brief Read serial number
-     *
-     * This command returns the serial number. It is defined as a string value
-     * with a maximum length of 32 ASCII characters (including terminating
-     * null-character)
-     *
-     * @param[out] serialNumber 32-byte ASCII string
-     *
-     * @return error_code 0 on success, an error code otherwise.
-     */
-    int16_t readSerialNumber(int8_t serialNumber[], uint16_t serialNumberSize);
-
-    /**
-     * @brief Gets firmware major.minor firmware version.
-     *
-     * @param[out] majorVersion
-     * @param[out] minorVersion
-     *
-     * @return error_code 0 on success, an error code otherwise.
-     */
-    int16_t readFirmwareVersion(uint8_t& majorVersion, uint8_t& minorVersion);
-
-    /**
-     * @brief Reads device status register
-     *
-     * Use this command to read the device status register. For more details,
-     * check explanations given in chapter 4.4 of the datasheet.
-     *
-     * @param[out] deviceStatus
-     *
-     * @return error_code 0 on success, an error code otherwise.
-     */
-    int16_t readDeviceStatusRegister(uint32_t& deviceStatus);
-
-    /**
-     * @brief Clears the device status register.
-     *
-     * Use this command to clear the device status register. For more details,
-     * check explanations given in chapter 4.4 of the datasheet.
-     *
-     * @return error_code 0 on success, an error code otherwise.
-     */
-    int16_t clearDeviceStatusRegister();
-
-    /**
-     * @brief Device software reset
-     *
-     * Device software reset command. After calling this command, the module is
-     * in the same state as after a power reset.
-     *
-     * @note To perform a reset when the sensor is in sleep mode, it is required
-     * to send first a wake-up sequence to activate the interface.
-     *
-     * @return error_code 0 on success, an error code otherwise.
-     */
-    int16_t deviceReset();
 
   private:
-    TwoWire* _i2cBus = nullptr;
-    uint8_t _i2cAddress = 0;
+      uint8_t _i2cAddress;
+      
+      uint8_t calculateCRC(uint8_t data[], uint8_t length);
+      bool _read_data(uint8_t command, uint8_t* buffer, size_t length);
+      
+      // Conversion des données brutes
+      float _convertTemperature(uint16_t raw);
+      float _convertHumidity(uint16_t raw);
 };
+class SPS30 {
+public:
+    // Constructeur
+    SPS30(uint8_t address = SPS30_I2C_ADDR_69);
+    /**
+     * @brief Réveille le capteur. tous est dans le nom
+     */
+    void wakeup();
+
+    /**
+     * @brief Met le capteur en veille. tous est dans le nom aussi
+     */
+    void sleep();
+
+    /**
+     * @brief Lance un cycle de nettoyage manuel du ventilateur. ne pas utiliser, vaut mieux configurer le registre automatique
+     */
+    void startFanCleaning();
+    /**
+     * @brief Démarre l'acquisition des mesures.
+     * @param format 1 ->loat, 2 -> uint16_t.
+     */
+    void startMeasurement(int format);
+
+    /**
+     * @brief Arrête l'acquisition des mesures.
+     */
+    void stopMeasurement();
+
+    /**
+     * @brief Vérifie si de nouvelles données sont prêtes à être lues.
+     * @return true si des données sont disponibles, false sinon.
+     */
+    bool readDataReadyFlag();
+
+    /**
+     * @brief Lit les données brutes et les convertit en structure structurée.
+     * @return Structure Capteur_PM_float remplie. 
+     *         Les valeurs seront à 0.0f si la lecture échoue.
+     */
+    Capteur_PM_float mesure();
+
+    bool setAutoCleaningInterval(uint16_t hours);
+
+private:
+    /**
+     * @brief Calcule le CRC selon l'algorithme Sensirion.
+     * @param data Tableau de 2 octets.
+     * @return La valeur CRC calculée.
+     */
+    uint8_t calcCrc(uint8_t data[2]);
+    /**
+     * @brief Écrit un registre et une valeur sur le bus I2C avec CRC fait automatiquement.
+     * @param reg Adresse du registre (16 bits).
+     * @param val Valeur à écrire (16 bits).
+     */
+    void write(uint16_t reg, uint16_t val);
+
+    /**
+     * @brief Lit un registre 16 bits depuis le capteur avec vérification CRC.
+     * @param reg Adresse du registre.
+     * @param result Référence vers la variable de stockage du résultat.
+     * @return true si la lecture et le CRC sont valides, false sinon.
+     */
+    bool read(uint16_t reg, uint16_t &result);
+
+    /**
+     * @brief Convertit 4 octets (2 paires MSB/LSB + CRC) en float.
+     * @param msb1, lsb1, crc1 Première paire de données.
+     * @param msb2, lsb2, crc2 Deuxième paire de données.
+     * @return La valeur float décodée, ou 0.0f en cas d'erreur CRC.
+     */
+    float bytesToFloat(uint8_t msb1, uint8_t lsb1, uint8_t crc1, 
+                       uint8_t msb2, uint8_t lsb2, uint8_t crc2);
+};  
+

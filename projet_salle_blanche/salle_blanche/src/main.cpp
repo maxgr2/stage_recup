@@ -1,36 +1,13 @@
-/*
- * ESP32 ESCLAVE — capteur particules SPS30 (Sensirion)
- * ---------------------------------------------------------
- * - Lit DHT22 (température + humidité)
- * - Lit SPS30 en I²C (PM1.0, PM2.5, PM4.0, PM10)
- * - Envoie les données via ESP-NOW au maître de la salle
- *
- * CÂBLAGE SPS30 en mode I²C
- *   Pin 1 (VDD)  → 5V
- *   Pin 2 (SDA)  → GPIO21  (+ pull-up 10kΩ vers 3.3V)
- *   Pin 3 (SCL)  → GPIO22  (+ pull-up 10kΩ vers 3.3V)
- *   Pin 4 (SEL)  → GND     (sélectionne le mode I²C)
- *   Pin 5 (GND)  → GND
- *
- * CONFIGURATION
- *   Relever l'adresse MAC du maître via son Serial Monitor
- *   Coller l'adresse dans MASTER_MAC ci-dessous
- *   Ajuster ROOM_ID et SLAVE_ID
- * ---------------------------------------------------------
- */
 
 #include <Arduino.h>
 #include <esp_now.h>
 #include <WiFi.h>
 #include <Wire.h>
-#include "I2S.h"
-
+#include "I2C.h"
+#include "ecran.h"
 // -- Configuration -----------------------------------------
 #define ROOM_ID           1
 #define SLAVE_ID          1
-#define DHT_PIN           4
-#define DHT_TYPE          DHT22
-#define SEND_INTERVAL_MS  5000
 
 // Adresse MAC du maître — à remplir une fois rasp recut
 uint8_t MASTER_MAC[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
@@ -123,8 +100,5 @@ void sendData() {
 
 // -- Loop ---------------------------------------------------
 void loop() {
-    if (millis() - lastSendMs >= SEND_INTERVAL_MS) {
-        lastSendMs = millis();
-        sendData();
-    }
+    
 }
