@@ -3,6 +3,9 @@
 
 
 
+// --- Constructeur du SPS30 ---
+SPS30::SPS30(uint8_t address) { // On peut ignorer l'adresse car elle est fixe pour ce capteur
+}
 
 void SPS30::write(uint16_t reg, uint16_t val){
     Wire.beginTransmission(SPS30_I2C_ADDR_69);
@@ -173,6 +176,11 @@ bool SPS30::setAutoCleaningInterval(uint16_t hours) {
     
     return true;
 }
+
+SHT40::SHT40(uint8_t address) {
+    _i2cAddress = address; // On sauvegarde l'adresse I2C passée en paramètre 
+}
+
 
 uint8_t SHT40::calculateCRC(uint8_t data[], uint8_t length) {
     uint8_t crc = 0xFF;

@@ -9,4 +9,4 @@ https://spj.science.org/doi/10.34133/energymatadv.0008
 https://pmc.ncbi.nlm.nih.gov/articles/PMC12152129/
 
 https://www.mon-club-elec.fr/raspberry-pi-serveur-web/
-
+https://www.locoduino.org/spip.php?article300
