@@ -1,0 +1,14 @@
+{
+  "name": "salle-blanche-backend",
+  "version": "1.0.0",
+  "description": "Backend MQTT -> SQLite + API REST",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "mqtt": "^5.3.4",
+    "better-sqlite3": "^9.4.3",
+    "express": "^4.18.3"
+  }
+}

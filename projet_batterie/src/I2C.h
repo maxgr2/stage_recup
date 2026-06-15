@@ -16,13 +16,18 @@ struct DonneesCapteur {
 // MCP23017 I/O Expander functions
 void mcpInit();
 void mcpWrite(uint8_t reg, uint8_t val);
+void mcpWrite_fille(uint8_t reg, uint8_t val, int adress);
 uint8_t mcpRead(uint8_t reg);
+uint8_t mcpRead_fille(uint8_t reg, int adress);
 
 // SSR (Solid State Relay) control functions
 void ssrOn(uint8_t ssrIndex);
+void ssrOn_fille(uint8_t ssrIndex, uint8_t adresse_i2c);
 void ssrOff(uint8_t ssrIndex);
+void ssrOff_fille(uint8_t ssrIndex, uint8_t adresse_i2c);
 void ssrToggle(uint8_t ssrIndex);
 void ssrAllOff();
+void ssrAllOff_fille(uint8_t* adresse_i2c,int nb_cartefille);
 void ssrSetAll(uint8_t maskA, uint8_t maskB);
 void alimentation_off(int bat);
 void alimentation_on(int bat);

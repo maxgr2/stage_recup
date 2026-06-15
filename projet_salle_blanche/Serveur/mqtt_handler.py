@@ -9,23 +9,18 @@ import paho.mqtt.client as mqtt
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 
-# ---------------------------------------------------------------------------
-# Config
-# ---------------------------------------------------------------------------
 
 MQTT_BROKER   = "192.168.1.100"   # IP du Raspberry Pi (ou "localhost" si script tourne sur le Pi)
 MQTT_PORT     = 1883
-MQTT_TOPIC    = "ets/salle1/mesures"
-MQTT_CLIENT_ID = "rpi-fastapi-subscriber"
+MQTT_TOPIC    = "ets/salle/mesures"
+MQTT_CLIENT_ID = "j_aime_le_veau"
 
 DB_PATH = "mesures.db"
 
 logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
 log = logging.getLogger(__name__)
 
-# ---------------------------------------------------------------------------
-# Base de données
-# ---------------------------------------------------------------------------
+
 
 def init_db():
     """Crée la table si elle n'existe pas encore."""
@@ -53,7 +48,7 @@ def init_db():
 
 @contextmanager
 def get_db():
-    """Context manager pour ouvrir/fermer proprement la connexion SQLite."""
+    """gestion du fichier equivalent de fopen et fclose"""
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     try:
@@ -66,7 +61,6 @@ def get_db():
         conn.close()
 
 def insert_mesure(data: dict):
-    """Insère une mesure dans la base de données."""
     with get_db() as conn:
         conn.execute("""
             INSERT INTO mesures (
@@ -84,10 +78,6 @@ def insert_mesure(data: dict):
             )
         """, {**data, "timestamp": datetime.now().isoformat()})
     log.info(f"Mesure insérée — salle {data['room']}, esclave {data['slave']}")
-
-# ---------------------------------------------------------------------------
-# Client MQTT
-# ---------------------------------------------------------------------------
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
@@ -126,9 +116,36 @@ def start_mqtt_client():
     log.info("Thread MQTT démarré")
     return client
 
-# ---------------------------------------------------------------------------
-# FastAPI — lifespan (remplace les @app.on_event dépréciés)
-# ---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -142,9 +159,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
-# ---------------------------------------------------------------------------
-# Routes
-# ---------------------------------------------------------------------------
+
 
 @app.get("/mesures")
 def get_mesures(limit: int = 100, room: int = None, slave: int = None):

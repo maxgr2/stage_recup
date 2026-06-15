@@ -11,12 +11,63 @@
 #define LED_PIN_1 4
 #define LED_PIN2 15
 #define SLEEP_TIME 15
+#define nb_cartefille 1
 int led_state=HIGH;
+
+uint8_t adresses_i2c_filles[nb_cartefille]; //Veuillez le remplir avec le nombre de batterie qui sera branché sur chaque carte fille
+
 
 //variable globale
 BLEAdvertising *pAdvertising;
 
 //Fonctions envoie bluetooth
+
+// Définir un seuil de tension minimum pour considérer qu'une batterie est présente
+// (Ajuste cette valeur selon ton type de batterie, ex: 1.0V)
+const float SEUIL_PRESENCE_BATTERIE = 1.0; 
+
+void mesurer_filles() {
+    for (int index_carte = 0; index_carte < nb_cartefille; index_carte++) {
+        uint8_t adresse_actuelle = adresses_i2c_filles[index_carte];
+        
+        // On boucle sur le nombre maximum d'emplacements possibles sur une carte fille (ex: 4)
+        for (int bat = 1; bat <= 4; bat++) {
+            
+            // 1. Allumer le SSR de cet emplacement pour relier la batterie au INA237
+            ssrOn_fille(bat, adresse_actuelle); // (Attention à adapter l'index du SSR selon ton routage)
+            delay(500); // Laisser le temps au relais de coller et à la tension de se stabiliser
+            
+            // 2. Mesurer uniquement la tension V_bus en premier
+            float v_bus = inaLireTensionBus();
+            
+            // 3. Vérifier si la batterie est réellement là
+            if (v_bus > SEUIL_PRESENCE_BATTERIE) {
+                
+                // La batterie est là ! On récupère le reste des données
+                DonneesCapteur data;
+                data.tensionBus_V = v_bus;
+                data.courant_A = inaLireCourant();
+                data.tensionShunt_mV = inaLireTensionShunt();
+                data.temperature_C = inaLireTemperature();
+                
+                // ... (Ici tu peux ajouter ta logique de lecture de température batterie) ...
+
+                // On diffuse en Bluetooth
+                envoierDonnees(data, pAdvertising, bat);
+                
+                Serial.printf("Carte 0x%02X | Emplacement %d : Batterie détectée (%.2fV)\n", adresse_actuelle, bat, v_bus);
+                
+            } else {
+                // Pas de batterie, on passe à la suivante en silence (ou avec un debug)
+                // Serial.printf("Carte 0x%02X | Emplacement %d : Vide\n", adresse_actuelle, bat);
+            }
+            
+            // 4. On éteint impérativement le SSR avant de passer à l'emplacement suivant
+            ssrOff_fille(bat, adresse_actuelle);
+            delay(100); // Petit délai de sécurité entre deux commutations
+        }
+    }
+}
 
 
 void faittous(int bat){

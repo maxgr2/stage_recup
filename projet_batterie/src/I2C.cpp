@@ -38,8 +38,25 @@ void mcpInit() {
   mcpWrite(OLATA, 0x00);
   mcpWrite(OLATB, 0x00);
 }
+
+void mcpInit_fille(uint8_t adresse_i2c) {
+  mcpWrite_fille(0x00, 0x00, adresse_i2c); // IODIRA
+  mcpWrite_fille(0x01, 0x00, adresse_i2c); // IODIRB
+  
+  mcpWrite_fille(OLATA, 0x00, adresse_i2c);
+  mcpWrite_fille(OLATB, 0x00, adresse_i2c);
+}
+
+
 void mcpWrite(uint8_t reg, uint8_t val) {
   Wire.beginTransmission(MCP_ADDR);
+  Wire.write(reg);
+  Wire.write(val);
+  Wire.endTransmission();
+}
+
+void mcpWrite_fille(uint8_t reg, uint8_t val, int adress){
+  Wire.beginTransmission(adress);
   Wire.write(reg);
   Wire.write(val);
   Wire.endTransmission();
@@ -53,6 +70,14 @@ uint8_t mcpRead(uint8_t reg) {
   return Wire.read();
 }
 
+uint8_t mcpRead_fille(uint8_t reg, int adress) {
+  Wire.beginTransmission(adress);
+  Wire.write(reg);
+  Wire.endTransmission();
+  Wire.requestFrom(adress, 1);
+  return Wire.read();
+}
+
 void ssrOn(uint8_t ssrIndex) {
   if (ssrIndex < 8) {
     uint8_t etat = mcpRead(OLATA);
@@ -60,6 +85,35 @@ void ssrOn(uint8_t ssrIndex) {
   } else {
     uint8_t etat = mcpRead(OLATB);
     mcpWrite(OLATB, etat | (1 << (ssrIndex - 8)));
+  }
+}
+
+void ssrOn_fille(uint8_t ssrIndex, uint8_t adresse_i2c) {
+  if (ssrIndex < 8) {
+    uint8_t etat = mcpRead_fille(OLATA, adresse_i2c);
+    mcpWrite_fille(OLATA, etat | (1 << ssrIndex), adresse_i2c);
+  } else {
+    uint8_t etat = mcpRead_fille(OLATB, adresse_i2c);
+    mcpWrite_fille(OLATB, etat | (1 << (ssrIndex - 8)), adresse_i2c);
+  }
+}
+
+
+void ssrOff_fille(uint8_t ssrIndex, uint8_t adresse_i2c) {
+  if (ssrIndex < 8) {
+    uint8_t etat = mcpRead_fille(OLATA, adresse_i2c);
+    mcpWrite_fille(OLATA, etat & ~(1 << ssrIndex), adresse_i2c);
+  } else {
+    uint8_t etat = mcpRead_fille(OLATB, adresse_i2c);
+    mcpWrite_fille(OLATB, etat & ~(1 << (ssrIndex - 8)), adresse_i2c);
+  }
+}
+
+void ssrAllOff_fille(uint8_t* adresse_i2c,int nb_cartefille) {
+  while (nb_cartefille>0){
+    mcpWrite_fille(OLATA, 0x00, adresse_i2c[nb_cartefille]);
+    mcpWrite_fille(OLATB, 0x00, adresse_i2c[nb_cartefille]);
+    nb_cartefille--;
   }
 }
 

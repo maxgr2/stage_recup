@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salle Blanche — Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 24px;
+        }
+
+        h1 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            color: #7dd3fc;
+        }
+
+        #status {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-bottom: 24px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .card {
+            background: #1e293b;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .card h2 {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #f1f5f9;
+        }
+
+        .unit {
+            font-size: 1rem;
+            color: #64748b;
+            margin-left: 4px;
+        }
+
+        .chart-card {
+            background: #1e293b;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .chart-card h2 {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        canvas { max-height: 220px; }
+    </style>
+</head>
+<body>
+
+<h1>🏭 Salle Blanche — Dashboard</h1>
+<div id="status">Chargement...</div>
+
+<!-- Valeurs instantanées -->
+<div class="grid">
+    <div class="card">
+        <h2>Température</h2>
+        <span class="value" id="val-temp">—</span><span class="unit">°C</span>
+    </div>
+    <div class="card">
+        <h2>Humidité</h2>
+        <span class="value" id="val-hum">—</span><span class="unit">%</span>
+    </div>
+    <div class="card">
+        <h2>PM2.5</h2>
+        <span class="value" id="val-mc2p5">—</span><span class="unit">µg/m³</span>
+    </div>
+    <div class="card">
+        <h2>PM10</h2>
+        <span class="value" id="val-mc10p0">—</span><span class="unit">µg/m³</span>
+    </div>
+</div>
+
+<!-- Graphiques historique -->
+<div class="chart-card">
+    <h2>Température & Humidité (50 dernières mesures)</h2>
+    <canvas id="chartTempHum"></canvas>
+</div>
+
+<div class="chart-card">
+    <h2>Particules PM (50 dernières mesures)</h2>
+    <canvas id="chartPM"></canvas>
+</div>
+
+<script>
+    const REFRESH_MS = 60000; // Rafraîchissement toutes les 60s
+
+    // ── Initialisation des graphiques ──────────────────────────────
+
+    const chartTempHum = new Chart(document.getElementById("chartTempHum"), {
+        type: "line",
+        data: {
+            labels: [],
+            datasets: [
+                { label: "Température (°C)", data: [], borderColor: "#f97316", backgroundColor: "rgba(249,115,22,0.1)", tension: 0.3, fill: true },
+                { label: "Humidité (%)",     data: [], borderColor: "#38bdf8", backgroundColor: "rgba(56,189,248,0.1)",  tension: 0.3, fill: true },
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { labels: { color: "#e2e8f0" } } }, scales: { x: { ticks: { color: "#64748b" } }, y: { ticks: { color: "#64748b" } } } }
+    });
+
+    const chartPM = new Chart(document.getElementById("chartPM"), {
+        type: "line",
+        data: {
+            labels: [],
+            datasets: [
+                { label: "PM1.0",  data: [], borderColor: "#a78bfa", tension: 0.3 },
+                { label: "PM2.5",  data: [], borderColor: "#34d399", tension: 0.3 },
+                { label: "PM4.0",  data: [], borderColor: "#fbbf24", tension: 0.3 },
+                { label: "PM10",   data: [], borderColor: "#f87171", tension: 0.3 },
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { labels: { color: "#e2e8f0" } } }, scales: { x: { ticks: { color: "#64748b" } }, y: { ticks: { color: "#64748b" } } } }
+    });
+
+    // ── Récupération des données ───────────────────────────────────
+
+    async function fetchData() {
+        try {
+            const res  = await fetch("/api/mesures?limit=50");
+            const rows = await res.json();
+
+            if (!rows.length) return;
+
+            // Valeurs instantanées (dernière mesure)
+            const last = rows[0];
+            document.getElementById("val-temp").textContent   = last.temperature?.toFixed(1) ?? "—";
+            document.getElementById("val-hum").textContent    = last.humidity?.toFixed(1)    ?? "—";
+            document.getElementById("val-mc2p5").textContent  = last.mc2p5?.toFixed(2)       ?? "—";
+            document.getElementById("val-mc10p0").textContent = last.mc10p0?.toFixed(2)      ?? "—";
+
+            // Graphiques (ordre chronologique)
+            const data = rows.reverse();
+            const labels = data.map(r => r.timestamp.slice(11, 16)); // HH:MM
+
+            chartTempHum.data.labels = labels;
+            chartTempHum.data.datasets[0].data = data.map(r => r.temperature);
+            chartTempHum.data.datasets[1].data = data.map(r => r.humidity);
+            chartTempHum.update();
+
+            chartPM.data.labels = labels;
+            chartPM.data.datasets[0].data = data.map(r => r.mc1p0);
+            chartPM.data.datasets[1].data = data.map(r => r.mc2p5);
+            chartPM.data.datasets[2].data = data.map(r => r.mc4p0);
+            chartPM.data.datasets[3].data = data.map(r => r.mc10p0);
+            chartPM.update();
+
+            document.getElementById("status").textContent =
+                `Dernière mise à jour : ${new Date().toLocaleTimeString()} — ${rows.length} mesures`;
+
+        } catch (err) {
+            document.getElementById("status").textContent = "Erreur de connexion à l'API";
+            console.error(err);
+        }
+    }
+
+    // Chargement initial + rafraîchissement périodique
+    fetchData();
+    setInterval(fetchData, REFRESH_MS);
+</script>
+
+</body>
+</html>
