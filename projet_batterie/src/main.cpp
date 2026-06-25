@@ -14,6 +14,7 @@
 #define nb_cartefille 1
 int led_state=HIGH;
 
+
 uint8_t adresses_i2c_filles[nb_cartefille]; //Veuillez le remplir avec le nombre de batterie qui sera branché sur chaque carte fille
 
 
@@ -69,6 +70,75 @@ void mesurer_filles() {
     }
 }
 
+DonneesCapteur mesures(int bat) {
+  // Éteindre tous les CONT_MES
+  ssrOff(7); ssrOff(4); ssrOff(2); ssrOff(0);
+  ssrOff(9); ssrOff(10); ssrOff(11); ssrOff(12); ssrOff(13); ssrOff(14);
+  ssrOff(8);
+  ssrOff(15); // 3.3V_temp
+  int r;
+  // Si cette batterie alimente, basculer sur une autre
+  if (batAlimActuelle==bat){
+    r= (esp_random()%3) +1;
+    while (r==bat){
+      r= (esp_random()%3) +1;
+    }
+    if (r==3){
+      r=4;
+    }
+  }else {
+    r=batAlimActuelle;
+  }
+  alimentation_on(r);
+  delay(100);
+  alimentation_off(bat);
+  batAlimActuelle=r;
+
+
+
+  // Allumer CONT_MES de la batterie voulue
+  switch (bat) {
+    case 1:  ssrOn(7);  break;
+    case 2:  ssrOn(4);  break;
+    case 3:  ssrOn(2);  break;
+    case 4:  ssrOn(0);  break;
+    case 5:  ssrOn(9);  break;
+    case 6:  ssrOn(10); break;
+    case 7:  ssrOn(11); break;
+    case 8:  ssrOn(12); break;
+    case 9:  ssrOn(13); break;
+    case 10: ssrOn(14); break;
+    default: Serial.println("Batterie inconnue"); return {};
+  }
+
+  ssrOn(15); // 3.3V_temp
+  delay(500);
+
+  DonneesCapteur m;
+  m.tensionBus_V = inaLireTensionBus();
+
+  if (m.tensionBus_V > 0.1f) {
+    ssrOn(8); // MES_TOT
+    delay(500);
+    m.tensionBus_charge_V = inaLireTensionBus();
+    m.courant_A           = inaLireCourant();
+    m.tensionShunt_mV     = inaLireTensionShunt();
+    m.puissance_W         = m.tensionBus_charge_V * m.courant_A;
+    ssrOff(8);
+  } else {
+    m.tensionBus_charge_V = 0.0f;
+    m.courant_A           = 0.0f;
+    m.tensionShunt_mV     = 0.0f;
+    m.puissance_W         = 0.0f;
+  }
+
+  m.temperature_C         = inaLireTemperature();
+  m.temperaturebatterie_C = 0.0f;
+
+  ssrOff(15); // 3.3V_temp
+  return m;
+}
+
 
 void faittous(int bat){
     //alimentation_on(bat);
@@ -108,6 +178,8 @@ void setup() {
     digitalWrite(LED_PIN2, HIGH);
     mcpInit(); // Initialisation du MCP23017
     pinMode(LED_PIN_1, OUTPUT);
+    batAlimActuelle = 1;  // ou 2 ou 4
+    alimentation_on(batAlimActuelle);
     
     
 
@@ -121,13 +193,15 @@ void setup() {
     
     pAdvertising = BLEDevice::getAdvertising();
     Serial.println("Bluetooth prêt, en attente de diffusion...");
-    ssrAllOff(); // On s'assure que toutes les alimentations sont éteintes avant de commencer les mesures
-
+    //ssrAllOff(); // On s'assure que toutes les alimentations sont éteintes avant de commencer les mesures
+    //ssrSetAll(0xFF,0xFF);
     //alimentation_on(1); // On allume l'alimentation de la batterie 1 pour faire les mesures
 
-    /*
-    for (int i=1;i<5;i++){
-        faittous(i);
+    
+    for (int i=1;i<11;i++){
+        if (i!=3){
+            faittous(i);
+        }
     }
     digitalWrite(LED_PIN2, LOW);
 
@@ -138,28 +212,30 @@ void setup() {
  
     esp_sleep_enable_timer_wakeup((uint64_t)SLEEP_TIME * 1000000ULL);
     esp_deep_sleep_start();
-    */
 
 }
 int i=1;
 
 
 void loop(){
-
+    /*
     digitalWrite(LED_PIN2, led_state);
     faittous(i);
-    ssrAllOff(); // On éteint toutes les alimentations après les mesures
-    if (i==4){
+    if (i==11){
         i=1;
 
     }
     else{
+        if (i==2){
+            i=4;
+        }else{
         i++;
+        }
     }
     if (led_state==HIGH){
         led_state=LOW;
     }
     else{
         led_state=HIGH;
-    }
+    }*/
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include <Arduino.h>
 
+static uint8_t batAlimActuelle = 0;
 
 struct DonneesCapteur {
   float tensionBus_V;
@@ -31,7 +32,6 @@ void ssrAllOff_fille(uint8_t* adresse_i2c,int nb_cartefille);
 void ssrSetAll(uint8_t maskA, uint8_t maskB);
 void alimentation_off(int bat);
 void alimentation_on(int bat);
-DonneesCapteur mesures(int bat);
 
 // INA237 Current/Voltage Sensor functions
 void inaWrite16(uint8_t reg, uint16_t val);

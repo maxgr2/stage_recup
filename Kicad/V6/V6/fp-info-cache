@@ -1,4 +1,4 @@
-23091787714773169
+23102475233265392
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -55755,6 +55755,20 @@ Integrated Circuit
 9
 9
 Esp
+P82B715DRG4
+
+P82B715DRG4 
+0
+8
+8
+Esp
+QFN-38_UHF_LIT
+
+LTC2497CUHF-TRPBF 
+0
+39
+39
+Esp
 SOT25-YE_DIO
 
 AP7366-33W5-7 
@@ -55817,6 +55831,13 @@ TLV1117LV33DCYR
 0
 4
 4
+Esp
+esp32_devkit_v1
+ESPWROOM32, ESP32, 30 GPIOs version
+
+0
+30
+30
 Esp
 esp32_devkit_v1_doit
 ESPWROOM32, ESP32, 30 GPIOs version
@@ -87240,6 +87261,27 @@ rotary encoder
 0
 7
 6
+SHT40VRAI
+SHT40-CD1B-R3_SEN
+
+SHT40-CD1B-R3 
+0
+5
+5
+SHT40VRAI
+SHT40-CD1B-R3_SEN-L
+
+SHT40-CD1B-R3 
+0
+5
+5
+SHT40VRAI
+SHT40-CD1B-R3_SEN-M
+
+SHT40-CD1B-R3 
+0
+5
+5
 Sensor
 ASAIR_AM2302_P2.54mm_Lead2.75mm_TabDown
 Temperature and humidity module, http://akizukidenshi.com/download/ds/aosong/AM2302.pdf

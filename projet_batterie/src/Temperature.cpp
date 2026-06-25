@@ -1,45 +1,40 @@
 #include <Arduino.h>
-const float R = 20000.0; 
-const float VREF_PIN_SUPPLY = 3.3;  // Tension d'alimentation (5V ou 3.3V)
-const int   ADC_RESOLUTION  = 4095; // 10 bits pour Arduino Uno
+#include "Temperature.h"
 
-// Coefficients de Steinhart-Hart (Valeurs typiques à ajuster selon votre capteur)
-const float C1 = 0.0011268740732306604;
-const float C2 = 0.00023452183442732656;
-const float C3 = 8.590172470421073e-08;
+#define VREF_ADC     3.3f
+#define ADC_RES      4095
+#define R_FIXE       10000.0f  // résistance fixe pont Wheatstone
+#define R25          10000.0f  // résistance TMP6131 à 25°C
+#define TCR          0.0064f   // 6400 ppm/°C = 0.64 %/°C
+#define T25          25.0f
 
-float lireVoltage(int pin) {
-  int raw = analogRead(pin);
-  return (raw / (float)ADC_RESOLUTION) * VREF_PIN_SUPPLY;
+// GPIO39 = Vref (base pont Wheatstone)
+#define PIN_VREF 39
+
+static const int TEMP_PINS[10] = {34, 35, 32, 33, 25, 26, 27, 14, 12, 13};
+
+static float lireVoltage(int pin) {
+    return (analogRead(pin) / (float)ADC_RES) * VREF_ADC;
 }
-const float R_FIXE = 20000.0;   // résistance fixe du pont (10K)
-const float R25    = 20000.0;   // résistance thermistor à 25°C
-const float BETA   = 4500;    // sur votre datasheet ou l'emballage
-const float T25_K  = 298.15;    // 25°C en Kelvi
-
 
 float temperature(int cap) {
-    float Vout;
-    switch (cap) {
-        case 1: Vout = lireVoltage(12); break;
-        case 2: Vout = lireVoltage(35); break;
-        case 3: Vout = lireVoltage(32); break;
-        case 4: Vout = lireVoltage(25); break;
-        default: return -1.0;
-    }
+    // cap : 1–10
+    if (cap < 1 || cap > 10) return -1.0f;
 
-    float Vref = lireVoltage(26);
+    float Vref = lireVoltage(PIN_VREF);
+    float Vout = lireVoltage(TEMP_PINS[cap - 1]);
 
-    // Thermistance en BAS du diviseur (ajuste si inversé)
+    if ((Vref - Vout) <= 0.0f) return -1.0f;
+
+    // Résistance du TMP6131
     float Rx = R_FIXE * Vout / (Vref - Vout);
 
-    float tempK = 1.0f / ((1.0f / T25_K) + (1.0f / BETA) * log(Rx / R25));
-    float tempC = tempK - 273.15f;
+    // Formule linéaire PTC : R(T) = R25 * (1 + TCR * (T - T25))
+    // → T = ((Rx / R25) - 1) / TCR + T25
+    float tempC = ((Rx / R25) - 1.0f) / TCR + T25;
 
-    // Sanity check résultat
     if (tempC < -40.0f || tempC > 125.0f) {
-        Serial.print("Température hors plage: ");
-        Serial.println(tempC);
+        Serial.printf("Température hors plage cap %d: %.1f°C\n", cap, tempC);
         return -1.0f;
     }
 

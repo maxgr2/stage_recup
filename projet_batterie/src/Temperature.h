@@ -1,3 +1,3 @@
 
 float temperature(int cap);
-float lireVoltage(int pin);
+static float lireVoltage(int pin);

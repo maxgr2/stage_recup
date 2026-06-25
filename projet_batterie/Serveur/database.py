@@ -37,44 +37,11 @@ def premiere_mesure(conn, chip_id, num_batterie):
         ORDER BY timestamp ASC LIMIT 1
     """, (chip_id, num_batterie))
     return cur.fetchone()
-
-def moyenne_premieres_mesures(conn, chip_id, num_batterie, limite=50): # Limite passée à 50
-    """Calcule la moyenne des 50 premières mesures (la référence fixe)."""
-    df = pd.read_sql("""
-        SELECT tensionBus_V, courant_A, puissance_W,
-               tensionShunt_mV, temperature_C, temperaturebatterie_C
-        FROM mesures
-        WHERE chip_id = ? AND num_batterie = ?
-        ORDER BY id ASC LIMIT ?
-    """, conn, params=(chip_id, num_batterie, limite))
-    
-    if df.empty:
-        return None
-    
-    return df.mean().to_dict()
-
-
-
-def moyenne_dernieres_mesures(conn, chip_id, num_batterie, limite=450):
-    """Calcule la moyenne des 'limite' dernières mesures enregistrées."""
-    df = pd.read_sql("""
-        SELECT tensionBus_V, courant_A, puissance_W,
-               tensionShunt_mV, temperature_C, temperaturebatterie_C
-        FROM mesures
-        WHERE chip_id = ? AND num_batterie = ?
-        ORDER BY id DESC LIMIT ?
-    """, conn, params=(chip_id, num_batterie, limite))
-    
-    if df.empty:
-        return None
-    
-    return df.mean().to_dict()
-
-
 def charger_mesures(conn, chip_id, num_batterie, limite=100):
     df = pd.read_sql("""
         SELECT timestamp, tensionBus_V, courant_A, puissance_W,
-               tensionShunt_mV, temperature_C, temperaturebatterie_C
+               tensionShunt_mV, temperature_C, temperaturebatterie_C,
+               tensionBus_charge_V, impedance_ohms
         FROM mesures
         WHERE chip_id = ? AND num_batterie = ?
         ORDER BY timestamp DESC LIMIT ?
@@ -82,6 +49,29 @@ def charger_mesures(conn, chip_id, num_batterie, limite=100):
     df["timestamp"] = pd.to_datetime(df["timestamp"])
     return df.sort_values("timestamp")
 
+
+def moyenne_premieres_mesures(conn, chip_id, num_batterie, limite=50):
+    df = pd.read_sql("""
+        SELECT tensionBus_V, courant_A, puissance_W,
+               tensionShunt_mV, temperature_C, temperaturebatterie_C,
+               tensionBus_charge_V, impedance_ohms
+        FROM mesures
+        WHERE chip_id = ? AND num_batterie = ?
+        ORDER BY id ASC LIMIT ?
+    """, conn, params=(chip_id, num_batterie, limite))
+    return df.mean().to_dict() if not df.empty else None
+
+
+def moyenne_dernieres_mesures(conn, chip_id, num_batterie, limite=450):
+    df = pd.read_sql("""
+        SELECT tensionBus_V, courant_A, puissance_W,
+               tensionShunt_mV, temperature_C, temperaturebatterie_C,
+               tensionBus_charge_V, impedance_ohms
+        FROM mesures
+        WHERE chip_id = ? AND num_batterie = ?
+        ORDER BY id DESC LIMIT ?
+    """, conn, params=(chip_id, num_batterie, limite))
+    return df.mean().to_dict() if not df.empty else None
 
 def statistiques(conn, chip_id, num_batterie):
     cur = conn.execute("""

@@ -1,4 +1,4 @@
-23095348210778657
+23097129836754082
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -55831,6 +55831,13 @@ TLV1117LV33DCYR
 0
 4
 4
+Esp
+esp32_devkit_v1
+ESPWROOM32, ESP32, 30 GPIOs version
+
+0
+30
+30
 Esp
 esp32_devkit_v1_doit
 ESPWROOM32, ESP32, 30 GPIOs version

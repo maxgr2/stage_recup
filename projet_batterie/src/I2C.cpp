@@ -1,10 +1,40 @@
-#include <Arduino.h>
-
 /*
+Ce fichier gère l'interface I2C :
+- MCP23017 : commande des SSR (alimentation et mesure) pour 10 batteries
+- INA237   : mesure de tension, courant, température
+En deux mots:
 Ce fichier a pour but de faire toute la gestion de l'interface I2C 
 dans notre cas ils commande donc l'expadeur et donc les SSR
 Et le module INA237
+
+
+Mapping MCP23017:
+  Port A :
+    GPA0 → CONT_MES4
+    GPA1 → CONT_ALIM4
+    GPA2 → CONT_MES3
+    GPA3 → CONT_ALIM3
+    GPA4 → CONT_MES2
+    GPA5 → CONT_ALIM2
+    GPA6 → CONT_ALIM1
+    GPA7 → CONT_MES1
+
+  Port B :
+    GPB0 → MES_TOT
+    GPB1 → CONT_MES5
+    GPB2 → CONT_MES6
+    GPB3 → CONT_MES7
+    GPB4 → CONT_MES8
+    GPB5 → CONT_MES9
+    GPB6 → CONT_MES10
+    GPB7 → 3.3V_temp
+
+Batteries 1–4 : ont CONT_ALIM + CONT_MES  → peuvent alimenter ET être mesurées
+Batteries 5–10 : ont uniquement CONT_MES   → mesure seulement
 */
+#include <Arduino.h>
+
+
 #include "I2C.h"
 #include <Wire.h>
 
@@ -149,58 +179,29 @@ void ssrSetAll(uint8_t maskA, uint8_t maskB) {
   mcpWrite(OLATB, maskB);
 }
 
-
 void alimentation_off(int bat) {
-  if (bat == 1) {
-    ssrOff(7); // SSR1 pour batterie 1
-  } else if (bat == 2) {
-    ssrOff(4); // SSR9 pour batterie 2
-  } else if (bat == 3) {
-    ssrOff(2); // SSR9 pour batterie 2
-  }else if (bat == 4) {
-    ssrOff(0); // SSR9 pour batterie 2
+  switch (bat) {
+    case 1: ssrOff(6); break;
+    case 2: ssrOff(5); break;
+    case 3: ssrOff(3); break;
+    case 4: ssrOff(1); break;
+    default: Serial.println("Batterie inconnue, impossible de couper l'alimentation"); break;
   }
-  else {
-    Serial.println("Batterie inconnue, impossible de couper l'alimentation");
-  }
-}
-DonneesCapteur mesures(int bat){
-  ssrOff(6);
-  ssrOff(5);
-  ssrOff(3);
-  ssrOff(1);
-  if (bat==1){
-    ssrOn(6);
-  }
-  if (bat==2){
-    ssrOn(5);
-  }
-   if (bat==3){
-    ssrOn(3);
-  }
-   if (bat==4){
-    ssrOn(1);
-  }
-  delay(1000);
-
-  DonneesCapteur m = inaLire_1_Batterie();
-  return m;
 }
 
 void alimentation_on(int bat) {
-  if (bat == 1) {
-    ssrOn(7); // SSR1 pour batterie 1
-  } else if (bat == 2) {
-    ssrOn(4); // SSR9 pour batterie 2
-  } else if (bat == 3) {
-    ssrOn(2); // SSR9 pour batterie 2
-  }else if (bat == 4) {
-    ssrOn(0); // SSR9 pour batterie 2
-  }
-  else {
-    Serial.println("Batterie inconnue, impossible d'allumer l'alimentation");
+  switch (bat) {
+    case 1: ssrOn(6); break;
+    case 2: ssrOn(5); break;
+    case 3: ssrOn(3); break;
+    case 4: ssrOn(1); break;
+    default: Serial.println("Batterie inconnue, impossible d'allumer l'alimentation"); break;
   }
 }
+
+
+
+
 
 void inaWrite16(uint8_t reg, uint16_t val) {
   Wire.beginTransmission(INA237_ADDR);
