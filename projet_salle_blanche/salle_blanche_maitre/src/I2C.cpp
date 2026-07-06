@@ -39,13 +39,14 @@ bool SPS30::read(uint16_t reg, uint16_t &result) {
     Wire.write((reg >> 8) & 0xFF); // MSB du registre
     Wire.write(reg & 0xFF);        // LSB du registre
     Wire.endTransmission();
-
+    delay(1);
     //attente de la réponse du capteur
     Wire.requestFrom((uint8_t)SPS30_I2C_ADDR_69, (uint8_t)3);
     if (Wire.available() == 3) {
         uint8_t msb = Wire.read();
         uint8_t lsb = Wire.read();
         uint8_t crc_recu = Wire.read();
+        
 
         // vérification des données avec le crc
         uint8_t data_pour_crc[2] = {msb, lsb};
@@ -61,8 +62,19 @@ bool SPS30::read(uint16_t reg, uint16_t &result) {
     return false;
 }
 
-void SPS30::wakeup(){
-    this->write(SPS30_WAKE_UP_CMD_ID, 0);
+void SPS30::wakeup() {
+    // Envoi spécial : pas de valeur ni de CRC
+    Wire.beginTransmission(SPS30_I2C_ADDR_69);
+    Wire.write((SPS30_WAKE_UP_CMD_ID >> 8) & 0xFF);
+    Wire.write(SPS30_WAKE_UP_CMD_ID & 0xFF);
+    Wire.endTransmission();
+    delay(50); // Le SPS30 a besoin de 50ms pour se réveiller
+
+    Wire.beginTransmission(SPS30_I2C_ADDR_69);
+    Wire.write((SPS30_WAKE_UP_CMD_ID >> 8) & 0xFF);
+    Wire.write(SPS30_WAKE_UP_CMD_ID & 0xFF);
+    Wire.endTransmission();
+    delay(50); //
 }
 
 void SPS30::sleep(){
@@ -109,13 +121,19 @@ float SPS30::bytesToFloat(uint8_t msb1, uint8_t lsb1, uint8_t crc1, uint8_t msb2
     float result;
     memcpy(&result, &combined, sizeof(float));
     uint8_t dataForCrc[2] = { msb1, lsb1 };
-    if (this->calcCrc(dataForCrc) == crc1) {
+    uint8_t calccrc1=this->calcCrc(dataForCrc);
+    u_int8_t calccrc2;
+    if (calccrc1 == crc1) {
         dataForCrc[0] = msb2;
         dataForCrc[1] = lsb2;
-        if (this->calcCrc(dataForCrc) == crc2) {
+        calccrc2=this->calcCrc(dataForCrc);
+        if ( calccrc2== crc2) {
             return result;
         }
     }
+     Serial.printf("FLOAT RAW: 0x%02X 0x%02X CRC1_recu=0x%02X CRC1_calc=0x%02X | "
+                  "0x%02X 0x%02X CRC2_recu=0x%02X CRC2_calc=0x%02X\n",
+                  msb1, lsb1, crc1, calccrc1, msb2, lsb2, crc2, calccrc2);
     Serial.println("Erreur de CRC");
     return 0.0f; // Retourne 0 en cas d'erreur de CRC
 }
@@ -135,8 +153,8 @@ Capteur_PM_float SPS30::mesure(){
         Wire.write((SPS30_READ_VALUES_CMD_ID >> 8) & 0xFF);
         Wire.write(SPS30_READ_VALUES_CMD_ID & 0xFF);
         Wire.endTransmission(false); // repeated start
-        Wire.requestFrom((uint8_t)SPS30_I2C_ADDR_69, (uint8_t)60);
-
+        uint8_t received = Wire.requestFrom((uint8_t)SPS30_I2C_ADDR_69, (uint8_t)60);
+        Serial.printf("Octets reçus : %d\n", received);
         if (Wire.available() < 60) {
             Serial.println("Erreur : réponse incomplète.");
             return Capteur_PM_float();

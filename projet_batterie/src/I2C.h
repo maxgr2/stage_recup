@@ -1,7 +1,7 @@
 #pragma once
 #include <Arduino.h>
 
-static uint8_t batAlimActuelle = 0;
+extern uint8_t batAlimActuelle;
 
 struct DonneesCapteur {
   float tensionBus_V;
@@ -16,6 +16,7 @@ struct DonneesCapteur {
 
 // MCP23017 I/O Expander functions
 void mcpInit();
+void mcpInit_fille(uint8_t adresse_i2c);
 void mcpWrite(uint8_t reg, uint8_t val);
 void mcpWrite_fille(uint8_t reg, uint8_t val, int adress);
 uint8_t mcpRead(uint8_t reg);

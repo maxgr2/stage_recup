@@ -59,6 +59,7 @@ Batteries 5–10 : ont uniquement CONT_MES   → mesure seulement
 #define OLATA 0x14
 #define OLATB 0x15
 
+uint8_t batAlimActuelle = 0;
 
 void mcpInit() {
   // Mettre tous les pins en SORTIE (0 = output)

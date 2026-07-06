@@ -21,8 +21,8 @@
 
 //Capteur de particule SPS30 de chez sensirion aussi
 #define SPS30_I2C_ADDR_69 0x69
-#define SPS30_WAKE_UP_CMD_ID            0x0006
-#define SPS30_SLEEP_CMD_ID              0x0010
+#define SPS30_WAKE_UP_CMD_ID            0x1103
+#define SPS30_SLEEP_CMD_ID              0x1001
 #define SPS30_START_MEASUREMENT_CMD_ID  0x0010
 #define SPS30_STOP_MEASUREMENT_CMD_ID   0x0104
 #define SPS30_READ_VALUES_CMD_ID        0x0300

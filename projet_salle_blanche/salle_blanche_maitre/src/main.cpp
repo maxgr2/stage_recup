@@ -8,7 +8,7 @@
 
 #define ROOM_ID           1
 #define Master_ID         4
-#define MESURE_INTERVALLE 60000ul
+#define MESURE_INTERVALLE 20000ul
 #define MESURE_DUREE      10000ul
 
 // Config réseau
@@ -85,7 +85,7 @@ void sendToMQTT(SensorData &data) {
 void setup() {
     Serial.begin(115200);
     Wire.begin();
-
+    Wire.setClock(100000);
     Connection::attach(doSubscriptions, onMessage);
     Connection::setup(SSID, PASSWORD, 6, DEVICE_NAME, BROKER_NAME);
 
@@ -124,12 +124,12 @@ void loop() {
     if (mesureEnCours && (now - timerMesure >= MESURE_DUREE)) {
         Capteur_PM_float pmData = sps30.mesure();
         sps30.stopMeasurement();
-        SHT40_Data dhtData = sht40.readMeasurement();
+        //SHT40_Data dhtData = sht40.readMeasurement();
 
         donnees_maitre.room_id   = ROOM_ID;
         donnees_maitre.slave_id  = Master_ID;
-        donnees_maitre.temperature = dhtData.isValid ? dhtData.temperature : 0.0f;
-        donnees_maitre.humidity    = dhtData.isValid ? dhtData.humidity    : 0.0f;
+        //donnees_maitre.temperature = dhtData.isValid ? dhtData.temperature : 0.0f;
+        //donnees_maitre.humidity    = dhtData.isValid ? dhtData.humidity    : 0.0f;
         donnees_maitre.mc1p0  = pmData.mc1p0;
         donnees_maitre.mc2p5  = pmData.mc2p5;
         donnees_maitre.mc4p0  = pmData.mc4p0;

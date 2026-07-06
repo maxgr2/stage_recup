@@ -992,7 +992,7 @@
     (property "Value" "SHT40-CD1B-R3" (at 114.3 31.75 0)
       (effects (font (size 1.524 1.524)))
     )
-    (property "Footprint" "Esp:U_SHT3_SEN" (at 134.62 44.45 0)
+    (property "Footprint" "SHT40VRAI:SHT40-CD1B-R3_SEN" (at 134.62 44.45 0)
       (effects (font (size 1.27 1.27) italic) hide)
     )
     (property "Datasheet" "SHT40-CD1B-R3" (at 134.62 44.45 0)
