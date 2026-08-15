@@ -30,6 +30,7 @@ def derniere_mesure(conn, chip_id, num_batterie):
     """, (chip_id, num_batterie))
     return cur.fetchone()
 
+
 def premiere_mesure(conn, chip_id, num_batterie):
     cur = conn.execute("""
         SELECT * FROM mesures
@@ -37,11 +38,13 @@ def premiere_mesure(conn, chip_id, num_batterie):
         ORDER BY timestamp ASC LIMIT 1
     """, (chip_id, num_batterie))
     return cur.fetchone()
+
+
 def charger_mesures(conn, chip_id, num_batterie, limite=100):
     df = pd.read_sql("""
-        SELECT timestamp, tensionBus_V, courant_A, puissance_W,
-               tensionShunt_mV, temperature_C, temperaturebatterie_C,
-               tensionBus_charge_V, impedance_ohms
+        SELECT timestamp, tensionBus_V, courant_A,
+               impedance_ohm, impedance_deg, temperature_C,
+               temperaturebatterie_C, tensionBus_charge_V
         FROM mesures
         WHERE chip_id = ? AND num_batterie = ?
         ORDER BY timestamp DESC LIMIT ?
@@ -52,9 +55,9 @@ def charger_mesures(conn, chip_id, num_batterie, limite=100):
 
 def moyenne_premieres_mesures(conn, chip_id, num_batterie, limite=50):
     df = pd.read_sql("""
-        SELECT tensionBus_V, courant_A, puissance_W,
-               tensionShunt_mV, temperature_C, temperaturebatterie_C,
-               tensionBus_charge_V, impedance_ohms
+        SELECT tensionBus_V, courant_A,
+               impedance_ohm, impedance_deg, temperature_C,
+               temperaturebatterie_C, tensionBus_charge_V
         FROM mesures
         WHERE chip_id = ? AND num_batterie = ?
         ORDER BY id ASC LIMIT ?
@@ -64,22 +67,25 @@ def moyenne_premieres_mesures(conn, chip_id, num_batterie, limite=50):
 
 def moyenne_dernieres_mesures(conn, chip_id, num_batterie, limite=450):
     df = pd.read_sql("""
-        SELECT tensionBus_V, courant_A, puissance_W,
-               tensionShunt_mV, temperature_C, temperaturebatterie_C,
-               tensionBus_charge_V, impedance_ohms
+        SELECT tensionBus_V, courant_A,
+               impedance_ohm, impedance_deg, temperature_C,
+               temperaturebatterie_C, tensionBus_charge_V
         FROM mesures
         WHERE chip_id = ? AND num_batterie = ?
         ORDER BY id DESC LIMIT ?
     """, conn, params=(chip_id, num_batterie, limite))
     return df.mean().to_dict() if not df.empty else None
 
+
 def statistiques(conn, chip_id, num_batterie):
     cur = conn.execute("""
         SELECT
             MIN(tensionBus_V)  as v_min, MAX(tensionBus_V)  as v_max, AVG(tensionBus_V)  as v_moy,
             MIN(courant_A)     as i_min, MAX(courant_A)     as i_max, AVG(courant_A)     as i_moy,
-            MIN(puissance_W)   as p_min, MAX(puissance_W)   as p_max, AVG(puissance_W)   as p_moy,
-            MIN(temperature_C) as t_min, MAX(temperature_C) as t_max, AVG(temperature_C) as t_moy
+            MIN(temperature_C) as t_min, MAX(temperature_C) as t_max, AVG(temperature_C) as t_moy,
+            MIN(impedance_ohm) as z_min, MAX(impedance_ohm) as z_max, AVG(impedance_ohm) as z_moy,
+            MIN(impedance_deg) as phase_min, MAX(impedance_deg) as phase_max,
+            AVG(impedance_deg) as phase_moy
         FROM mesures WHERE chip_id = ? AND num_batterie = ?
     """, (chip_id, num_batterie))
     return cur.fetchone()
@@ -90,6 +96,8 @@ def verifier_alertes(mesure) -> list[str]:
     if mesure is None:
         return alertes
     for champ, (vmin, vmax) in SEUILS.items():
+        if champ not in mesure.keys():
+            continue
         val = mesure[champ]
         if val is not None and not (vmin <= val <= vmax):
             alertes.append(f"{champ} = {val:.2f} (seuil [{vmin}, {vmax}])")

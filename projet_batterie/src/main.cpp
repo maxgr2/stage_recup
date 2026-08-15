@@ -6,26 +6,142 @@
 #include <BLEUtils.h>
 #include "bluetooth.h"
 #include "esp_sleep.h"
+#include "Impedance.h"
+
 
 
 #define LED_PIN_1 4
 #define LED_PIN2 15
 #define SLEEP_TIME 5
-#define nb_cartefille 1
+#define nb_cartefille 0
+
 int led_state=HIGH;
+//#define FB_HZ            384.0       // fréquence de bit
 
 
-uint8_t adresses_i2c_filles[nb_cartefille][2] = {{0x24, 0x35}};
+// ---------- Planification long terme ----------
+#define MEASURE_INTERVAL_MS  (60UL * 60UL * 1000UL)  // une mesure toutes les heures
+
+// ---------- Buffers résultats ----------
+float currentBuf[MAX_SAMPLES];
+float voltageBuf[MAX_SAMPLES];
+uint8_t lfsr=0x7F;
+
+static const int BIN_LIST[] = {5, 6, 7, 8, 9};
+static const int NUM_BINS = sizeof(BIN_LIST) / sizeof(BIN_LIST[0]);
+
+uint8_t adresses_i2c_filles[nb_cartefille][2] ;//= {{0x24, 0x35}};
 
 
 //variable globale
 BLEAdvertising *pAdvertising;
-
+uint8_t batAlimActuelle=0;
 //Fonctions envoie bluetooth
 
 // Définir un seuil de tension minimum pour considérer qu'une batterie est présente
 // (Ajuste cette valeur selon ton type de batterie, ex: 1.0V)
 const float SEUIL_PRESENCE_BATTERIE = 1.0; 
+
+
+
+// f_target = 20 Hz, demi-largeur = 6 Hz -> bins k = 5..9 (résolution Fb/SEQ_LEN ≈ 3.02 Hz)
+
+#define COH_MIN 0.9f
+
+// Calcule X[k] (complexe, non normalisé) pour un segment de N échantillons
+/*static void goertzel(const float *x, uint16_t offset, uint16_t N, int k,
+                      float &re, float &im) {
+  float w = 2.0f * PI * (float)k / (float)N;
+  float cosine = cosf(w);
+  float sine = sinf(w);
+  float coeff = 2.0f * cosine;
+  float q0 = 0, q1 = 0, q2 = 0;
+ 
+  for (uint16_t n = 0; n < N; n++) {
+    q0 = coeff * q1 - q2 + x[offset + n];
+    q2 = q1;
+    q1 = q0;
+  }
+  re = q1 - q2 * cosine;
+  im = q2 * sine;
+}*/
+/*ImpedanceResult computeImpedance() {
+  ImpedanceResult result = {false, 0, 0, 0};
+ 
+  // moyenne DC à retirer (montage unipolaire 0/Imax)
+  float meanI = 0, meanV = 0;
+  for (uint16_t n = 0; n < MAX_SAMPLES; n++) { meanI += currentBuf[n]; meanV += voltageBuf[n]; }
+  meanI /= MAX_SAMPLES; meanV /= MAX_SAMPLES;
+ 
+  float SuvRe[NUM_BINS] = {0}, SuvIm[NUM_BINS] = {0};
+  float Suu[NUM_BINS] = {0}, Svv[NUM_BINS] = {0};
+ 
+  static float iSeg[SEQ_LEN], vSeg[SEQ_LEN];
+ 
+  for (uint16_t rep = 0; rep < REPEATS; rep++) {
+    uint16_t offset = rep * SEQ_LEN;
+    for (uint16_t n = 0; n < SEQ_LEN; n++) {
+      iSeg[n] = currentBuf[offset + n] - meanI;
+      vSeg[n] = voltageBuf[offset + n] - meanV;
+    }
+ 
+    for (int b = 0; b < NUM_BINS; b++) {
+      float iRe, iIm, vRe, vIm;
+      goertzel(iSeg, 0, SEQ_LEN, BIN_LIST[b], iRe, iIm);
+      goertzel(vSeg, 0, SEQ_LEN, BIN_LIST[b], vRe, vIm);
+ 
+      // Suv += conj(I) * V ; Suu += |I|^2 ; Svv += |V|^2
+      SuvRe[b] += iRe * vRe + iIm * vIm;
+      SuvIm[b] += iRe * vIm - iIm * vRe;
+      Suu[b]   += iRe * iRe + iIm * iIm;
+      Svv[b]   += vRe * vRe + vIm * vIm;
+    }
+  }
+ 
+  // moyenne pondérée par la cohérence sur les bins retenus
+  float wSumRe = 0, wSumIm = 0, wSum = 0, cohSum = 0;
+  int nOk = 0;
+ 
+  for (int b = 0; b < NUM_BINS; b++) {
+    float suvRe = SuvRe[b] / REPEATS, suvIm = SuvIm[b] / REPEATS;
+    float suu = Suu[b] / REPEATS, svv = Svv[b] / REPEATS;
+ 
+    float suvMagSq = suvRe * suvRe + suvIm * suvIm;
+    float coh = (suu > 1e-9f && svv > 1e-9f) ? (suvMagSq / (suu * svv)) : 0.0f;
+ 
+    if (coh < COH_MIN) continue;
+ 
+    // Z = Suv / Suu (division complexe, Suu réel)
+    float zRe = suvRe / suu, zIm = suvIm / suu;
+    float w = coh * coh;
+ 
+    wSumRe += zRe * w;
+    wSumIm += zIm * w;
+    wSum   += w;
+    cohSum += coh;
+    nOk++;
+  }
+
+  if (nOk == 0 || wSum < 1e-9f) return result;  // valid = false -> mesure à rejeter
+ 
+  float zRe = wSumRe / wSum, zIm = wSumIm / wSum;
+ 
+  result.valid = true;
+  result.magnitude_ohm = sqrtf(zRe * zRe + zIm * zIm);
+  result.phase_deg = atan2f(zIm, zRe) * 180.0f / PI;
+  result.confidence = cohSum / nOk;
+ 
+  return result;
+}*/
+ImpedanceResult mesureImpedance() {
+  mesure_impedance();
+  /*for (int i = 0; i < MAX_SAMPLES; i++) {
+    Serial.printf("Échantillon %d : Courant = %.3f A, Tension = %.3f V\n", i, currentBuf[i], voltageBuf[i]);
+  }*/
+
+  return computeImpedance();
+}
+
 
 DonneesCapteur mesurer_filles(int bat, int index_carte) {
         uint8_t adresse_actuelle = adresses_i2c_filles[index_carte][0];
@@ -42,9 +158,7 @@ DonneesCapteur mesurer_filles(int bat, int index_carte) {
                 // Une batterie est réelelment branché
                 data.tensionBus_V = v_bus;
                 data.courant_A = inaLireCourant();
-                data.tensionShunt_mV = inaLireTensionShunt();
                 data.temperature_C = inaLireTemperature();
-                
                 //Température à faire
                 data.temperaturebatterie_C = temperature_carte_fille(0x35, bat);
                 
@@ -74,10 +188,11 @@ DonneesCapteur mesures(int bat) {
     r= (esp_random()%3) +1;
     while (r==bat){
       r= (esp_random()%3) +1;
-    }
-    if (r==3){
+      if (r==3){
       r=4;
     }
+    }
+    
   }else {
     r=batAlimActuelle;
   }
@@ -120,7 +235,7 @@ DonneesCapteur mesures(int bat) {
      Serial.println("Batterie inconnue"); return {};
   }
 
-  delay(500);
+  delay(800);
 
   m.tensionBus_V = inaLireTensionBus();
 
@@ -129,14 +244,13 @@ DonneesCapteur mesures(int bat) {
     delay(500);
     m.tensionBus_charge_V = inaLireTensionBus();
     m.courant_A           = inaLireCourant();
-    m.tensionShunt_mV     = inaLireTensionShunt();
-    m.puissance_W         = m.tensionBus_charge_V * m.courant_A;
+
     ssrOff(8);
   } else {
     m.tensionBus_charge_V = 0.0f;
     m.courant_A           = 0.0f;
-    m.tensionShunt_mV     = 0.0f;
-    m.puissance_W         = 0.0f;
+    m.impedance_deg         = 0.0f;
+    m.impedance_ohm         = 0.0f;
   }
 
   m.temperature_C         = inaLireTemperature();
@@ -158,6 +272,26 @@ void faittous(int bat){
 
        
     }
+    ImpedanceResult impedanceResult;
+    //Mesur de la batterie 4 car le reste est sur alim
+    //Mais système final devrait faire ca pour toutes les batteries
+    if (bat==4 && data.tensionBus_V > SEUIL_PRESENCE_BATTERIE) {
+      
+      impedanceResult = mesureImpedance();
+      delay(1000);
+      if (impedanceResult.valid) {
+        data.impedance_ohm = impedanceResult.magnitude;
+        data.impedance_deg = impedanceResult.phase;
+        }
+      Serial.printf("batAlimActuelle au moment de la mesure : %d\n", batAlimActuelle);
+      Serial.printf("Résultat de l'impédance : Magnitude = %.2f Ω, Phase = %.2f°, Validité = %s\n",
+        impedanceResult.magnitude,
+        impedanceResult.phase,
+        impedanceResult.valid ? "Valide" : "Invalide");
+        Serial.printf("Résultat : Validité = %s, confiance = %.3f\n", impedanceResult.valid ? "Valide" : "Invalide", impedanceResult.coherence);
+        ssrOff(8);
+
+    }
     
     ssrOff(15); //alim capteur temp off
     if (data.tensionBus_V > SEUIL_PRESENCE_BATTERIE) {
@@ -169,8 +303,6 @@ void faittous(int bat){
         bat,
         data.tensionBus_V,
         data.courant_A,
-        data.puissance_W,
-        data.tensionShunt_mV,
         data.temperature_C,
         data.temperaturebatterie_C
     );
@@ -182,6 +314,7 @@ void setup() {
     delay(1000); // Attente que le système soit stable après le démarrage
     BLEDevice::init("Esp_batterie");
     delay(1000);
+    uint16_t impedance;
     
     
     //config I2C
@@ -212,13 +345,14 @@ void setup() {
     //ssrSetAll(0xFF,0xFF);
     //alimentation_on(1); // On allume l'alimentation de la batterie 1 pour faire les mesures
 
-    
+    ImpedanceResult impedanceResult;
     for (int i=1;i<13;i++){//J'ai actuellement 13 batterie
         if (i!=3){
             faittous(i);
         }
     }
     digitalWrite(LED_PIN2, LOW);
+    ssrOff(8);
 
     // ── Deep sleep
     Serial.print("Deep sleep");

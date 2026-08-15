@@ -4,13 +4,13 @@
 extern uint8_t batAlimActuelle;
 
 struct DonneesCapteur {
-  float tensionBus_V;
-  float tensionBus_charge_V; // Tension mesurée pendant la charge
-  float courant_A;
-  float puissance_W;
-  float tensionShunt_mV;
-  float temperature_C;
-  float temperaturebatterie_C;//cette donnée doit être rempli plus tard par le capteur de temperature
+    float tensionBus_V;
+    float courant_A;
+    float temperature_C;
+    float temperaturebatterie_C;
+    float tensionBus_charge_V;
+    float impedance_deg;
+    float impedance_ohm;   
 };
 
 

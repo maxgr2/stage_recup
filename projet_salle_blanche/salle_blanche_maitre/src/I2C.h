@@ -30,6 +30,8 @@
 #define SPS30_START_FAN_CLEANING_CMD_ID 0x5607
 #define SPS30_AUTO_CLEANING_INTERVAL_CMD_ID 0x8004
 
+#define SHT30_I2C_ADDR 0x44
+
 typedef struct {
     float mc1p0;
     float mc2p5;
@@ -42,6 +44,21 @@ typedef struct {
     float nc10p0;
     float typicalParticleSize;
 } Capteur_PM_float;
+
+typedef struct {
+    float mc0p1;
+    float mc0p3;
+    float mc0p5;
+    float mc1p0;
+    float mc2p5;
+    float mc5p0;
+    float nc0p1;
+    float nc0p3;
+    float nc0p5;
+    float nc1p0;
+    float nc2p5;
+    float nc5p0;
+} Capteur_PM_IPS_float;
 
 struct SHT40_Data {
     float temperature;
@@ -77,6 +94,39 @@ class SHT40 {
       float _convertTemperature(uint16_t raw);
       float _convertHumidity(uint16_t raw);
 };
+struct SHT30_Data {
+    float temperature;
+    float humidity;
+    bool valid;
+};
+class SHT30 {
+  public:
+      SHT30(uint8_t address = SHT30_I2C_ADDR);
+
+      /**
+       * @brief Lit la température et l'humidité du capteur.
+       * Mesure haute précision, sans clock stretching (polling).
+       * @return Structure SHT30_Data contenant les valeurs et l'indicateur de validité.
+       */
+      SHT30_Data readMeasurement();
+
+      // Utilitaires à n'utiliser que lors du setup
+      void softReset();
+      bool readSerialNumber(char* buffer, size_t bufferSize); 
+
+  private:
+      uint8_t _i2cAddress;
+      
+      // Adaptation pour le SHT30 : la commande passe sur 16 bits
+      bool _sendCommand(uint16_t command);
+      uint8_t _calculateCRC(uint8_t data[], uint8_t length);
+      
+      // Conversion des données brutes
+      float _convertTemperature(uint16_t raw);
+      float _convertHumidity(uint16_t raw);
+};
+
+
 class SPS30 {
 public:
     // Constructeur
@@ -153,3 +203,18 @@ private:
                        uint8_t msb2, uint8_t lsb2, uint8_t crc2);
 };  
 
+class  IPS7100 {
+public:
+     IPS7100(uint8_t address = 0x4b); // Adresse I2C
+    void startMeasurement();
+    void stopMeasurement();
+    bool readDataReadyFlag();
+    Capteur_PM_IPS_float mesure();
+private:
+    uint8_t _i2cAddress;
+    bool readBlock(uint8_t reg, uint8_t *buffer, uint8_t length);
+    uint16_t calcCrc(uint8_t byte[2], int len);
+    void write(uint16_t reg, uint16_t val);
+    bool read(uint16_t reg, uint16_t &result);
+    float bytesToFloat(uint8_t msb1, uint8_t lsb1, uint8_t msb2, uint8_t lsb2);
+};

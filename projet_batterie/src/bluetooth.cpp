@@ -38,8 +38,8 @@ void envoierDonnees(DonneesCapteur data, BLEAdvertising *pAdvertising, int NUMER
 
     appendInt16(data.tensionBus_V,          100.0);  // précision 0.01 V
     appendInt16(data.courant_A,             1000.0); // précision 0.001 A
-    appendInt16(data.puissance_W,           10.0);   // précision 0.1 W
-    appendInt16(data.tensionShunt_mV,       100.0);  // précision 0.01 mV
+    appendInt16(data.impedance_ohm,          100.0);  // précision 0.01 Ω
+    appendInt16(data.impedance_deg,           100.0);  // précision
     appendInt16(data.temperature_C,         10.0);   // précision 0.1 °C
     appendInt16(data.temperaturebatterie_C, 10.0);   // précision 0.1 °C
     appendInt16(data.tensionBus_charge_V, 100.0);  // précision 0.01 V
@@ -50,13 +50,11 @@ void envoierDonnees(DonneesCapteur data, BLEAdvertising *pAdvertising, int NUMER
     pAdvertising->setAdvertisementData(oAdvertisementData);
     pAdvertising->start();
 
-    Serial.printf("Diffusion | ChipID: %08X | Batterie: %d | %.2fV | %.2fA | %.2fW | %.2fmV | %.1f°C | %.1f°C\n",
+    Serial.printf("Diffusion | ChipID: %08X | Batterie: %d | %.2fV | %.2fA | %.1f°C | %.1f°C\n",
         chipID,
         NUMERO_BATTERIE,
         data.tensionBus_V,
         data.courant_A,
-        data.puissance_W,
-        data.tensionShunt_mV,
         data.temperature_C,
         data.temperaturebatterie_C
     );

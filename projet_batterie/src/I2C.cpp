@@ -59,7 +59,7 @@ Batteries 5–10 : ont uniquement CONT_MES   → mesure seulement
 #define OLATA 0x14
 #define OLATB 0x15
 
-uint8_t batAlimActuelle = 0;
+extern uint8_t batAlimActuelle;
 
 void mcpInit() {
   // Mettre tous les pins en SORTIE (0 = output)
@@ -260,10 +260,8 @@ DonneesCapteur inaLire_1_Batterie() {
   ssrOn(8);
   delay(1000);
   m.courant_A       = inaLireCourant();
-  m.tensionShunt_mV = inaLireTensionShunt();
   m.temperature_C   = inaLireTemperature();
   m.tensionBus_charge_V = inaLireTensionBus();
-  m.puissance_W     = m.tensionBus_V * m.courant_A;
   m.temperaturebatterie_C = 0; // Cette valeur devra être remplie par le capteur de température
   return m;
 }

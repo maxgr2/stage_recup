@@ -39,7 +39,19 @@ Les fichiers de conception électronique (schématiques et routages) sont dispon
 * **Capteurs de Température :** TMP6131QLPGMQ1 (thermistance PTC linéaire installée sur chaque batterie)
 * **Conditionnement Température :** Ponts diviseurs de tension de précision (10 kΩ, 0.25W) adossés à une tension de référence ($V_{ref}$) stabilisée et mesurée en amont par l'ESP32.
 * **Shunt de courant :** 1 résistance de 150 mΩ (1W)
-* **Résistance de charge :** 1 résistance de 2.2 kΩ
+* **Résistance de charge :** 
+Pour obtenir une mesure la plus fiable possible, il est conseillé d'adapter la résistance de charges en fonctions des batteries surveillé.
+Si vous souhaiter avoir des batterie de tension différentes prennait la résistance la plus grande, sinon cela risque de casser les SSR. La mesure d'impédance sera moins précise ou impossible pour les batteries plus petite.
+
+| Tension batterie | Rload (Ω) | Puissance dissipée (W) | Calibre résistance recommandé |
+|---:|---:|---:|:---|
+| 8 V | 66,7 | 0,96 | ≥ 2 W |
+| 12 V | 100 | 1,44 | ≥ 2 W |
+| 24 V | 200 | 2,88 | ≥ 5 W |
+| 36 V | 300 | 4,32 | ≥ 5 W |
+| 48 V | 400 | 5,76 | ≥ 10 W |
+| 65 V | 542 | 7,8 | ≥ 10 W |
+
 
 ---
 
@@ -65,16 +77,20 @@ Chaque message de mesure est optimisé pour tenir dans un payload compact de **1
 | **1 octet** | Numéro de Batterie | Index de la batterie mesurée (ex: 1 à 10, ou index fille) |
 | **12 octets** | Données Capteurs | 6 variables au format `int16_t` (2 octets chacune) avec mise à l'échelle |
 
-**Détail de la mise à l'échelle des données (12 octets) :**
+
+**Détail de la mise à l'échelle des données (14 octets) :**
+
 1. **Tension Bus (`tensionBus_V`) :** Facteur $\times 100$ (Précision de 0.01 V)
 2. **Courant (`courant_A`) :** Facteur $\times 1000$ (Précision de 0.001 A)
-3. **Puissance (`puissance_W`) :** Facteur $\times 10$ (Précision de 0.1 W)
-4. **Tension Shunt (`tensionShunt_mV`) :** Facteur $\times 100$ (Précision de 0.01 mV)
+3. **Impédance - Module (`impedance_ohm`) :** Facteur $\times 100$ (Précision de 0.01 Ω)
+4. **Impédance - Phase (`impedance_deg`) :** Facteur $\times 100$ (Précision de 0.01°)
 5. **Température Interne (`temperature_C`) :** Facteur $\times 10$ (Précision de 0.1 °C)
 6. **Température Batterie (`temperaturebatterie_C`) :** Facteur $\times 10$ (Précision de 0.1 °C)
 7. **Tension en Charge (`tensionBus_charge_V`) :** Facteur $\times 100$ (Précision de 0.01 V)
 
 ---
+##Détails pour la mesure 
+
 ## Fonctionnement du Serveur
 
 Le serveur reçoit les données transmises par les cartes, les stocke dans une base de données locale (SQLite) et les affiche sur une interface graphique en temps réel.
