@@ -39,4 +39,28 @@ L'ensemble du code embarqué a été développé en C++ via PlatformIO sur l'éd
 
 Une libraire complète pour utiliser les capteurs de sensirion développer par mes soins est disponible dans les fichier I2C.cpp et I2C.h, la libraire de l'écran et celle du frabicant DFRobot. 
 
-# Notice d'utilisation: 
+# Notice d'utilisation
+
+## Prérequis matériels
+
+- 1x Raspberry Pi 4B+ (serveur central)
+- Par salle blanche à équiper :
+  - 3x ESP32 DevKit V1 (modules esclaves)
+  - 1x ESP32 DevKit V1 (module maître)
+  - 4x capteurs Sensirion SPS30
+  - 4x capteurs Sensirion SHT40
+  - 1x écran (piloté via la librairie DFRobot)
+  - PCB de connexion (fichiers disponibles dans ce dépôt)
+
+## Prérequis logiciels
+
+- [VSCode](https://code.visualstudio.com/) avec l'extension [PlatformIO](https://platformio.org/)
+- [Docker](https://www.docker.com/) et Docker Compose sur la Raspberry Pi
+
+## Installation des modules esclaves
+
+1. Ouvrir le projet dans VSCode avec PlatformIO.
+2. Dans `main.cpp`, configurer les identifiants propres à chaque module :
+   ```cpp
+   #define ROOM_ID   1   // Identifiant de la salle blanche
+   #define SLAVE_ID  1   // Identifiant du module au sein de la salle (1, 2 ou 3)
